@@ -33,7 +33,8 @@ import io.reactivex.disposables.Disposable
 abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePresenter> : RxFragment(),
         View.OnClickListener, BaseContract.BaseView {
 
-    val EXTRA_PARENT_FRAGMENT_CLASS_NAME = "Base_Extra_ParentFragmentClassName"
+    private val EXTRA_PARENT_FRAGMENT_CLASS_NAME = "Base_Extra_ParentFragmentClassName"
+    protected val lastFragmentName: String by lazy(LazyThreadSafetyMode.NONE) { getActivity().intent.getStringExtra(EXTRA_PARENT_FRAGMENT_CLASS_NAME) }
 
     protected val PAGESIZE: Int = 20
     protected var mToolbar: Toolbar? = null

@@ -24,10 +24,11 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
     /**
      * 传入参数, String 类型， startActivity 启动带入下一个界面的父的启动类的名称
      */
-    val EXTRA_PARENT_ACTIVITY_CLASS_NAME = "Base_Extra_ParentActivityClassName"
+    private val EXTRA_PARENT_ACTIVITY_CLASS_NAME = "Base_Extra_ParentActivityClassName"
     protected val PAGESIZE: Int = 20
 
-    val mHandler = Handler(Looper.getMainLooper()) { message -> false }
+    protected val mHandler = Handler(Looper.getMainLooper()) { message -> false }
+    protected val lastActivityName: String by lazy(LazyThreadSafetyMode.NONE) { intent.getStringExtra(EXTRA_PARENT_ACTIVITY_CLASS_NAME) }
 
 
     //一个界面会有一个mActivityHelper

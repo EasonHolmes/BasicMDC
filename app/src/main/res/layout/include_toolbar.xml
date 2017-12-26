@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:orientation="vertical"-->
+<!--android:translationZ="@dimen/elevation_trantion_z"-->
+<!--app:elevation="5dp"-->
+<!--app:layout_scrollFlags="scroll|enterAlways">-->
+
+
+<!--这里默认是让statusbar和tooolbar做为一个整体 如果toolbar不需要动画 或者toolbar的动画需要statusbar一起进行
+那么可以使用这个-->
+<!--<include-->
+<!--android:id="@+id/include_toolbar_padding_view"-->
+<!--layout="@layout/include_toolbar_padding_view"/>-->
+
+
+<android.support.v7.widget.Toolbar
+    android:id="@+id/mToolBar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/app_color"
+    app:layout_scrollFlags="scroll|enterAlways"
+    app:popupTheme="@style/MenuTextStyle"
+    app:theme="@style/toolbarTheme">
+    <!--android:background="@color/transparent"透明色
+    android:theme="@style/ThemeOverlay.AppCompat.Light"这个pop是白底黑色但返回键是黑色
+
+     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+
+       android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/toolbar_background"
+    android:paddingTop="@dimen/toolbar_padding_top"
+    app:elevation="5dp"
+    app:layout_scrollFlags="scroll|enterAlways"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+     -->
+</android.support.v7.widget.Toolbar>
+    <!--</android.support.v7.widget.LinearLayoutCompat>-->

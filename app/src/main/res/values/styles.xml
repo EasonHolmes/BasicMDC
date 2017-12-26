@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- toolbar（actionbar）颜色 -->
+        <item name="colorPrimary">@color/app_color</item>
+        <!-- 状态栏颜色 -->
+        <!--<item name="colorPrimaryDark">@color/transparent</item>-->
+        <!--主题色-->
+        <item name="colorAccent">@color/app_color</item>
+        <item name="android:navigationBarColor">@color/app_color</item>
+        <item name="windowActionModeOverlay">true</item>
+        <!--activity透明背使应用启动没有白屏，为了配合SwipeActivity(包括下面)-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
+    </style>
+
+    <style name="WelTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- toolbar（actionbar）颜色 -->
+        <item name="colorPrimary">@color/app_color</item>
+        <!-- 状态栏颜色 -->
+        <!--<item name="colorPrimaryDark">@color/transparent</item>-->
+        <!--主题色-->
+        <item name="colorAccent">@color/app_color</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:navigationBarColor">@color/app_color</item>
+        <!--欢迎页不用因为会在视觉上延迟因为是透明的了。这个看application里的消耗时间所以欢迎页直接不使用-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+    </style>
+
+    <!--toolbarMenu菜单的样式-->
+    <style name="MenuTextStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:itemBackground">@color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="toolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    </style>
+
+
+</resources>

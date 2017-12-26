@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+
+def cfg = rootProject.ext.android
+def librarys = rootProject.ext.appDependencies
+def kapts = rootProject.ext.appDependenciesKapt
+def url = rootProject.ext.url
+
+android {
+//    signingConfigs {
+//        config {
+//            keyAlias 'ddcompany'
+//            keyPassword '12345678'
+//            storeFile file('build.jks')
+//            storePassword '12345678'
+//        }
+//    }
+//    packagingOptions {
+//        exclude 'META-INF/rxjava.properties'
+//    }
+    compileSdkVersion cfg.compileSdkVersion
+    buildToolsVersion cfg.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.cui.mdc"
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        versionCode cfg.versionCode//2.2.9版本code
+        versionName cfg.versionName
+        multiDexEnabled true
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        abortOnError false
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            shrinkResources true
+//            signingConfig signingConfigs.config
+            manifestPlaceholders = [JPUSH_APPKEY: '00afad7629caa5c61e461093']
+            buildConfigField("String", "GLOBAL_DOMAIN", "\"${url["release"]}\"")
+        }
+        debug {
+            ext.enableCrashlytics = false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+//            signingConfig signingConfigs.config
+            manifestPlaceholders = [JPUSH_APPKEY: '669cfa7641e8de2cc92fcfc9']
+            buildConfigField("String", "GLOBAL_DOMAIN", "\"${url["debug"]}\"")
+
+        }
+    }
+    // 定义下面你需要用到变量维度
+    // 当你使用Gradle进行合并的时候，指定你需要的环境维度
+    flavorDimensions "stage", "mode"
+
+    productFlavors {
+        dev {
+            // 为了避免64k方法数限制，将开发环境的最低minSdkVersion 设置到 21以上 或更高
+            dimension "stage"
+            //noinspection DevModeObsolete
+            minSdkVersion 21
+        }
+
+        prod {
+            minSdkVersion 17
+            dimension "mode"
+        }
+    }
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = ['libs']
+//        }
+//    }
+//    dexOptions {
+//        //instant run https://developer.android.com/studio/run/index.html?hl=zh-cn#set-up-ir
+//        preDexLibraries true//使用预生成库进行增量更新
+//        maxProcessCount 8//设置最大的线程数
+//        javaMaxHeapSize "2g"//设置最大堆空间
+//    }
+
+    dataBinding {
+        enabled = true
+    }
+    aaptOptions {
+        cruncherEnabled false//禁用PNG图片自动压缩
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    librarys.each { k, v -> implementation v }
+    kapts.each { k, v -> kapt v }
+
+}

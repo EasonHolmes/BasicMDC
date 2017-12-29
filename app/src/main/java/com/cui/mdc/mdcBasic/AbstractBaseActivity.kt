@@ -29,7 +29,7 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
     private val EXTRA_PARENT_ACTIVITY_CLASS_NAME = "Base_Extra_ParentActivityClassName"
     protected val PAGESIZE: Int = 20
 
-    protected val mHandler = Handler(Looper.getMainLooper()) { message -> false }
+    val mHandler = Handler(Looper.getMainLooper()) { message -> false }
     protected val lastActivityName: String by lazy(LazyThreadSafetyMode.NONE) { intent.getStringExtra(EXTRA_PARENT_ACTIVITY_CLASS_NAME) }
 
 
@@ -93,7 +93,7 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
     }
 
 
-    protected fun initToolbar(titleResouceStr: String = "", titleResourceId: Int, isNeedBack: Boolean = true) {
+    protected fun initToolbar(titleResourceId: Int = 0, isNeedBack: Boolean = true, titleResouceStr: String = "") {
         initToolbar(if (titleResourceId > 0) resources.getString(titleResourceId) else titleResouceStr, isNeedBack)
     }
 
@@ -101,7 +101,7 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
         return mToolbar
     }
 
-    protected fun initToolbar(titleResouce: String, isNeedBack: Boolean) {
+    private fun initToolbar(titleResouce: String, isNeedBack: Boolean) {
         mToolbar.title = titleResouce
         setSupportActionBar(mToolbar)
         if (isNeedBack) {

@@ -8,6 +8,7 @@ import android.os.*
 import android.support.transition.TransitionManager
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.cui.mdc.R
@@ -15,6 +16,7 @@ import com.cui.mdc.mdcHelper.ActivityHelper
 
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.utils.library.utils.StatusBarUtil
+import com.utils.library.utils.isNotEmptyStr
 import com.widget.library.progress.ProgressBarCircularIndeterminate
 import com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
 import io.reactivex.disposables.Disposable
@@ -40,6 +42,7 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
     protected var disposable: Disposable? = null
     lateinit var presenter: T//在oncreate中初始化P在Ondestory中释放V
     lateinit var binding: B//在onCreate中初始化
+    protected var swipeTarget: DDRecyclerViewLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -155,21 +158,39 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
      * @param error
      */
     override fun refreshError(error: String) {
-        if (error.contains("404")) {
+        //activity.getActivityHelper().dismissSimpleLoadDialog()
+        if (error.isNotEmptyStr()) {
+            if (error.contains("404")) {
 //            mActivityHelper.dialogMessage("未找到请求地址404\n" + error)
-        } else if (error.contains("500")) {
+            } else if (error.contains("500")) {
 //            getActivityHelper().dialogMessage("请求地址访问错误500\n" + error)
-        } else if (error.contains("SocketTimeoutException")) {
+            } else if (error.contains("SocketTimeoutException")) {
 //            getActivityHelper().dialogMessage("连接超时请重试SocketTimeoutException\n" + error)
-        } else if (error.contains("no address") || error.contains("Failed to connect to")) {
+            } else if (error.contains("no address") || error.contains("Failed to connect to")) {
 //            getActivityHelper().dialogMessage("没有网络连接no address or Failed to connect to\n" + error)
-        } else {
+            } else {
 //            getActivityHelper().ErrordialogMessageByMine(error)
+            }
         }
-        val swipeTarget = binding.root?.findViewById<DDRecyclerViewLayout>(R.id.swipe_target)
-        swipeTarget?.let {
-            swipeTarget.refresComplete()
-            binding.root?.findViewById<ProgressBarCircularIndeterminate>(R.id.progress)?.visibility = View.GONE
-        }
+        GoneRecyclerViewProgress()
+    }
+
+    override fun onStop() {
+        stopFlingRecyclerview()
+        super.onStop()
+
+    }
+
+    private fun GoneRecyclerViewProgress() {
+        swipeTarget?.refresComplete()
+    }
+
+    /**
+     * 当是图片列表需要标注避免Recyclerview使用Glide加载图片时惯性运动在消毁页面时依然还在加载图片
+     * 页面关闭recyclerview不再滑动 否则有可能Glide会出现You cannot start a load for a destroyed activity
+     */
+    private fun stopFlingRecyclerview() {
+        swipeTarget?.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(),
+                SystemClock.uptimeMillis(), MotionEvent.ACTION_CANCEL, 0F, 0F, 0))
     }
 }

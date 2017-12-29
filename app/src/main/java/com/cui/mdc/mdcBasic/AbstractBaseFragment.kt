@@ -5,21 +5,20 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.OnRebindCallback
 import android.databinding.ViewDataBinding
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.transition.TransitionManager
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 
 import com.cui.mdc.R
 import com.trello.rxlifecycle2.components.support.RxFragment
 import com.utils.library.utils.isNotEmptyStr
-import com.widget.library.progress.ProgressBarCircularIndeterminate
 import com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
 
 
@@ -43,6 +42,7 @@ abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePr
     protected var disposable: Disposable? = null
     protected lateinit var presenter: T//在oncreate中初始化P在Ondestory中释放V
     protected lateinit var binding: B
+    protected var swipeTarget: DDRecyclerViewLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<B>(inflater!!, setDataBindingContentViewId(), null, false)
@@ -123,12 +123,27 @@ abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePr
             } else {
 //                activity.getActivityHelper().ErrordialogMessageByMine(error);
             }
-            val swipeTarget = binding.root.findViewById<DDRecyclerViewLayout>(R.id.swipe_target)
-            swipeTarget?.let {
-                swipeTarget.refresComplete()
-                binding.root?.findViewById<ProgressBarCircularIndeterminate>(R.id.progress)?.visibility = View.GONE
-            }
         }
+        GoneRecyclerViewProgress()
+    }
+
+    override fun onStop() {
+        stopFlingRecyclerview()
+        super.onStop()
+
+    }
+
+    private fun GoneRecyclerViewProgress() {
+        swipeTarget?.refresComplete()
+    }
+
+    /**
+     * 当是图片列表需要标注避免Recyclerview使用Glide加载图片时惯性运动在消毁页面时依然还在加载图片
+     * 页面关闭recyclerview不再滑动 否则有可能Glide会出现You cannot start a load for a destroyed activity
+     */
+    private fun stopFlingRecyclerview() {
+        swipeTarget?.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(),
+                SystemClock.uptimeMillis(), MotionEvent.ACTION_CANCEL, 0F, 0F, 0))
     }
 
     protected fun setViewClickListener(vararg views: View) {

@@ -1,9 +1,9 @@
-package com.cui.mdc.mdcBasic;
+package com.cui.mdc.mdcBasic
 
 /**
  * Created by cuiyang on 16/5/11.
  */
-public interface BaseContract {
+interface BaseContract {
 
     interface BaseView {
 
@@ -12,10 +12,9 @@ public interface BaseContract {
          *
          * @param error
          */
-        void refreshError(String error);
+        fun refreshError(error: String)
 
     }
 
-    interface BasePresenter {
-    }
+    interface BasePresenter
 }

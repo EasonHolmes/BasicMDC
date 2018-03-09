@@ -2,9 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
-
+//config.gradle各依赖数组
 def cfg = rootProject.ext.android
-def librarys = rootProject.ext.appDependencies
+def commonLibrarys = rootProject.ext.appDependencies
+def widgetLibrarys = rootProject.ext.widgetDependencies
+def utilsLibrarys = rootProject.ext.utilsDependencies
+def myLibrarys = rootProject.ext.myDependencies
 def kapts = rootProject.ext.appDependenciesKapt
 def url = rootProject.ext.url
 
@@ -99,7 +102,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    librarys.each { k, v -> implementation v }
+    //循环加入每个Dependencies
+    commonLibrarys.each { k, v -> implementation v }
+    utilsLibrarys.each { k, v -> implementation v }
+    widgetLibrarys.each { k, v -> implementation v }
+    myLibrarys.each { k, v -> implementation v }
     kapts.each { k, v -> kapt v }
 
 }

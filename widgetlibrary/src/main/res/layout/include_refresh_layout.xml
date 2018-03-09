@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!--去除refreshlayout的id都交由 CRecyclerViewLayout去操作和获取refreshlayout这样如果换refreshlayout就容易一些-->
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/stalls_white_bg_color"
+            android:tag="layout/include_refresh_layout_0"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+
+            <com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <com.widget.library.progress.ProgressBarCircularIndeterminate
+            android:id="@+id/progress_refresh"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:background="@color/recyclerview_center_progress_color"
+            android:visibility="gone"/>
+    </FrameLayout>
+</layout>

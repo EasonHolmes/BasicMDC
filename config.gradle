@@ -3,6 +3,8 @@
  * 在这里单独处理统一依赖问题
  * 注意需要在根目录的build.gradle中进行引入
  */
+//需要在根build.gradle加这行才可以使用
+// apply from: "config.gradle"
 ext {
     android = [
             buildToolsVersion: "27.0.2",
@@ -12,6 +14,7 @@ ext {
             versionCode      : 37,//2.3.2版本code
             versionName      : "1.0.0"
     ]
+    //主项目使用url
     url = [
             "release"      : "http://www.haoqipei.com/",
             "debug"        : "http://58.247.112.82:8811/9tong-hqp-app/",
@@ -21,55 +24,59 @@ ext {
     supportVersion = "26.1.0"
     retrofitVersion = "2.3.0"
     rxLifecycleVersion = "2.2.0"
+
+    //widget使用库
     widgetDependencies = [
-            libSupportAppcompatV7    : "com.android.support:appcompat-v7:${supportVersion}",
-            libSupportAppcompatV4    : "com.android.support:support-v4:${supportVersion}",
             libRecyclerview          : "com.android.support:recyclerview-v7:${supportVersion}",
             libSupportAppcompatDesign: "com.android.support:design:${supportVersion}",
             libCardView              : "com.android.support:cardview-v7:${supportVersion}",
             libKotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             libRefreshLayout         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3',
-            libMyUtils               : 'com.utilslibrary.lib:sdk-utilslibrary:0.0.2',
     ]
     widgetDependenciesKapt = [
             libKotlinDatabinding: "com.android.databinding:compiler:3.0.0"
     ]
+
+    //utils使用库
     utilsDependencies = [
-            libSupportAppcompatV7    : "com.android.support:appcompat-v7:${supportVersion}",
-            libSupportAppcompatV4    : "com.android.support:support-v4:${supportVersion}",
-            libRecyclerview          : "com.android.support:recyclerview-v7:${supportVersion}",
-            libSupportAppcompatDesign: "com.android.support:design:${supportVersion}",
-            libCardView              : "com.android.support:cardview-v7:${supportVersion}",
-            libKotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            libGlide                 : 'com.github.bumptech.glide:glide:4.2.0',
-            libGlideIntegration      : 'com.github.bumptech.glide:okhttp3-integration:4.2.0',
-            libGlideFormations       : 'jp.wasabeef:glide-transformations:3.0.1',
-            libRetrofit              : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-            libRetrofitGson          : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
-            libRetrofitRxadapter     : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
-            libXlog                  : 'com.elvishew:xlog:1.3.0',
-            libRxJava                : 'io.reactivex.rxjava2:rxjava:2.1.5',
-            libRxAndroid             : 'io.reactivex.rxjava2:rxandroid:2.0.1',
-            libRxLifecycle           : "com.trello.rxlifecycle2:rxlifecycle:${rxLifecycleVersion}",
-            libRxLifecycleComponents : "com.trello.rxlifecycle2:rxlifecycle-components:${rxLifecycleVersion}",
-            libOkhttp                : 'com.squareup.okhttp3:okhttp:3.9.0'
+            libGlide                : 'com.github.bumptech.glide:glide:4.2.0',
+            libGlideIntegration     : 'com.github.bumptech.glide:okhttp3-integration:4.2.0',
+            libGlideFormations      : 'jp.wasabeef:glide-transformations:3.0.1',
+            libRetrofit             : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            libRetrofitGson         : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            libRetrofitRxadapter    : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            libKotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            libXlog                 : 'com.elvishew:xlog:1.3.0',
+            libRxJava               : 'io.reactivex.rxjava2:rxjava:2.1.5',
+            libRxAndroid            : 'io.reactivex.rxjava2:rxandroid:2.0.1',
+            libRxLifecycle          : "com.trello.rxlifecycle2:rxlifecycle:${rxLifecycleVersion}",
+            libRxLifecycleComponents: "com.trello.rxlifecycle2:rxlifecycle-components:${rxLifecycleVersion}",
+            libOkhttp               : 'com.squareup.okhttp3:okhttp:3.9.0',
     ]
     utilsDependenciesKapt = [
             libKotlinDatabinding: "com.android.databinding:compiler:3.0.0",
             libGlideCompiler    : 'com.github.bumptech.glide:compiler:4.2.0'
     ]
+
+    //基础库
     appDependencies = [
-            libMyUtils         : 'com.utilslibrary.lib:sdk-utilslibrary:0.0.3',
-            libMywidgetlibrary : 'com.widgetlibrary.lib:sdk-widgetlibrary:0.0.2',
-            libRxpermissions   : 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar',
-            libConstraintLayout: 'com.android.support.constraint:constraint-layout:1.0.2',
-            libXlog            : 'com.elvishew:xlog:1.3.0',
+            libSupportAppcompatV7: "com.android.support:appcompat-v7:${supportVersion}",
+            libSupportAppcompatV4: "com.android.support:support-v4:${supportVersion}",
+            libRxpermissions     : 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar',
+            libConstraintLayout  : 'com.android.support.constraint:constraint-layout:1.0.2',
+            libXlog              : 'com.elvishew:xlog:1.3.0',
             //libKotlin : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-            libKotlin          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            libCardView        : "com.android.support:cardview-v7:${supportVersion}",
+            libKotlin            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     ]
     appDependenciesKapt = [
             //kotlin 兼容databinding需要使用的
             libKotlinDatabinding: "com.android.databinding:compiler:3.0.0"
+    ]
+
+    //自己的库
+    myDependencies = [
+            libMyUtils        : 'com.utilslibrary.lib:sdk-utilslibrary:0.0.3',
+            libMywidgetlibrary: 'com.widgetlibrary.lib:sdk-widgetlibrary:0.0.2'
+
     ]
 }

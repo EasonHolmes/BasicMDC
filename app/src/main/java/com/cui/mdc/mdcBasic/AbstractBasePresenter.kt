@@ -4,6 +4,7 @@ package com.cui.mdc.mdcBasic
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
+import com.elvishew.xlog.LogUtils
 import io.reactivex.disposables.CompositeDisposable
 import java.lang.ref.ReferenceQueue
 import java.lang.ref.WeakReference
@@ -35,10 +36,10 @@ import java.lang.ref.WeakReference
 open class AbstractBasePresenter<out V>(Views: V) : LifecycleObserver, BaseContract.BasePresenter {
     /**用于保存和清空Disposable*/
     private var disposables: CompositeDisposable? = null
-    /**弱引用队列，用于清除引用V的弱引用对象*/
-    private var referenceQueue = ReferenceQueue<V>()
+   /**弱引用队列，用于清除引用V的弱引用对象 http://blog.csdn.net/u012332679/article/details/57489179*/
+    //private var referenceQueue = ReferenceQueue<V>()
     /**使用弱引用先包装一层*/
-    private val weakReferenceView = WeakReference<V>(Views, referenceQueue)
+    private val weakReferenceView = WeakReference<V>(Views)
 
     protected val mView: V
         get() {
@@ -59,6 +60,9 @@ open class AbstractBasePresenter<out V>(Views: V) : LifecycleObserver, BaseContr
             disposables!!.clear()
             disposables = null
         }
-        referenceQueue.poll()
+        weakReferenceView.clear()
+//        referenceQueue.poll()
+//        LogUtils.e(AbstractBasePresenter::class.java, "p:out")
+//        LogUtils.e(AbstractBasePresenter::class.java, (weakReferenceView.get() == null).toString())
     }
 }

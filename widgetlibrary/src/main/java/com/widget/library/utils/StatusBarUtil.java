@@ -1,4 +1,4 @@
-package com.cui.mdc.mdcUtils;
+package com.widget.library.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -14,7 +14,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.utils.library.R;
+import com.widget.library.R;
+
 
 /**
  * Created by Jaeger on 16/2/14.

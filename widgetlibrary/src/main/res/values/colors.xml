@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="header_color">#617a8a</color>
+    <color name="footer_color">#617a8a</color>
+    <color name="recyclerview_center_progress_color">#617a8a</color>
+    <color name="progress_color">#617a8a</color>
+    <color name="app_color">#617a8a</color>
+    <color name="black_trans_background">#44000000</color>
+    <color name="stalls_text_bg_color">#FAFAFA</color>
+    <color name="textGray">#BCBCBC</color>
+    <color name="stalls_app_bg_color">#F2F2F2</color>
+    <color name="stalls_app_bg_color_ripple">#dadada</color>
+    <color name="white">#fff</color>
+
+    <color name="google_blue">#4285F4</color>
+    <color name="google_red">#EA4335</color>
+    <color name="google_green">#34A853</color>
+    <color name="google_yellow">#FBBC05</color>
+    <color name="stalls_white_bg_color">#f4f4f4</color>
+</resources>

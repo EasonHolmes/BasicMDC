@@ -10,7 +10,7 @@ import com.cui.mdc.mdcBasic.AbstractBaseActivity
 import com.cui.mdc.mdcMode.MainActivityContract
 import com.cui.mdc.mdcPresenter.MainActivityPresenter
 
-class MainActivity : AbstractBaseActivity<MainActBinding, MainActivityPresenter>(),
+class MainActivity : AbstractBaseActivity<MainActBinding, MainActivityContract.MainActivityPresenterIml>(),
         MainActivityContract.MainActivityView {
 
     private val EXTRA_KEY = "content"

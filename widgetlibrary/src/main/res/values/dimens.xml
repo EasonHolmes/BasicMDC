@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="normal_14text_size">14sp</dimen>
+    <dimen name="small_12text_size">12sp</dimen>
+    <dimen name="small_11text_size">11sp</dimen>
+    <dimen name="small_13text_size">13sp</dimen>
+    <dimen name="normal_15text_size">15sp</dimen>
+    <dimen name="big_16text_size">16sp</dimen>
+    <dimen name="big_17text_size">17sp</dimen>
+
+
+    <dimen name="elevation">5dp</dimen>
+    <dimen name="elevation_trantion_z">5dp</dimen>
+    <dimen name="card_radius">11dp</dimen>
+
+    <dimen name="toolbarpadding">24dp</dimen>
+    <dimen name="toolbar_text_margin">13dp</dimen>
+
+    <!-- cell的默认高度 -->
+    <dimen name="default_cell_height">44dip</dimen>
+    <!-- 底部 tabbar 高度 -->
+    <dimen name="tabbar_height">48dip</dimen>
+</resources>

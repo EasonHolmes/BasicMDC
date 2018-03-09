@@ -28,6 +28,7 @@ import io.reactivex.disposables.Disposable
 /**
  * Created by cuiyang on 16/6/6.
  * 生命周期顺序请注意 1setUserVisibleHint 2onCreateView 3 onCreateViewed
+ * 为防止 Glide会出现You cannot start a load for a destroyed activity页面关闭recyclerview不再滑动 使用Lifecycle写在DDRecyclerviewLyoaut中在onStop生命周期
  */
 abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePresenter> : RxFragment(),
         View.OnClickListener, BaseContract.BaseView {
@@ -42,10 +43,9 @@ abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePr
     protected var disposable: Disposable? = null
     protected lateinit var presenter: T//在oncreate中初始化P在Ondestory中释放V
     protected lateinit var binding: B
-    protected var swipeTarget: DDRecyclerViewLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate<B>(inflater!!, setDataBindingContentViewId(), null, false)
+        binding = DataBindingUtil.inflate<B>(inflater!!, setDataBindingContentViewId(), container, false)
         mContext = container!!.context
         activity = getActivity() as AbstractBaseActivity<*, *>
         return binding.root
@@ -124,27 +124,8 @@ abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePr
 //                activity.getActivityHelper().ErrordialogMessageByMine(error);
             }
         }
-        GoneRecyclerViewProgress()
     }
 
-    override fun onStop() {
-        stopFlingRecyclerview()
-        super.onStop()
-
-    }
-
-    private fun GoneRecyclerViewProgress() {
-        swipeTarget?.refresComplete()
-    }
-
-    /**
-     * 当是图片列表需要标注避免Recyclerview使用Glide加载图片时惯性运动在消毁页面时依然还在加载图片
-     * 页面关闭recyclerview不再滑动 否则有可能Glide会出现You cannot start a load for a destroyed activity
-     */
-    private fun stopFlingRecyclerview() {
-        swipeTarget?.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(),
-                SystemClock.uptimeMillis(), MotionEvent.ACTION_CANCEL, 0F, 0F, 0))
-    }
 
     protected fun setViewClickListener(vararg views: View) {
         for (view in views) {

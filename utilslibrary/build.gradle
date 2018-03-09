@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'maven'
+
+
+def cfg = rootProject.ext.android
+def librarys = rootProject.ext.utilsDependencies
+def kapts = rootProject.ext.utilsDependenciesKapt
+
+android {
+    compileSdkVersion cfg.compileSdkVersion
+    buildToolsVersion cfg.buildToolsVersion
+
+
+    defaultConfig {
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    librarys.each { k, v -> implementation v }
+    kapts.each { k, v -> kapt v }
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.2.30"
+}
+//这样可以看到源码
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//这样可以看到源码
+artifacts {
+    archives sourcesJar
+}
+
+uploadArchives{
+    repositories{
+        mavenDeployer{
+            repository(url: System.properties['mavenpath'])
+            pom.groupId = 'com.utilslibrary.lib'
+            pom.artifactId = 'sdk-utilslibrary'
+            pom.version = '0.0.4'
+        }
+    }
+}

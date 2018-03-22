@@ -9,6 +9,7 @@ import com.cui.mdc.databinding.MainActBinding
 import com.cui.mdc.mdcBasic.AbstractBaseActivity
 import com.cui.mdc.mdcMode.MainActivityContract
 import com.cui.mdc.mdcPresenter.MainActivityPresenter
+import com.widget.library.utils.StatusBarUtil
 
 class MainActivity : AbstractBaseActivity<MainActBinding, MainActivityContract.MainActivityPresenterIml>(),
         MainActivityContract.MainActivityView {
@@ -25,6 +26,13 @@ class MainActivity : AbstractBaseActivity<MainActBinding, MainActivityContract.M
         binding.textview.text = "page_" + page
 
         setViewClickListener(binding.textview)
+
+    }
+
+    override fun setStatuBarTheme() {
+//        StatusBarUtil.setColorForSwipeBack(this, resources.getColor(R.color.textGray), 50)
+        StatusBarUtil.setColor(this@MainActivity, resources.getColor(R.color.white),1)
+        StatusBarUtil.setLightMode(this@MainActivity)
 
     }
 

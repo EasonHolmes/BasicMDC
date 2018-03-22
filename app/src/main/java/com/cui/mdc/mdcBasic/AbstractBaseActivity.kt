@@ -69,7 +69,7 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
     /**
      * 设置statubar样式 如果要设置activity透明这个需要理新实现否则就不会透明了
      */
-    protected fun setStatuBarTheme() {
+    protected open fun setStatuBarTheme() {
         StatusBarUtil.setColorForSwipeBack(this, resources.getColor(R.color.app_color), 50)
         // 经测试在代码里直接声明透明状态栏更有效 这个设置会在一些机子上有半透明效果
         //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)

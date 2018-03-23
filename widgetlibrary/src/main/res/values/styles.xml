@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 
-    <!--透明dialog-->
     <style name="SimpleDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -9,7 +8,7 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
     </style>
-    <!--透明dialog 要蒙版 backgroundDimEnabled true-->
+    <!--透明dialog 要蒙版的话 backgroundDimEnabled true-->
     <style name="SimpleProgressDialog" parent="@style/SimpleDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:background">@android:color/transparent</item>

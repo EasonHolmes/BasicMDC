@@ -1,5 +1,6 @@
 package com.widget.library.refresh.recyclerview
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
@@ -16,6 +17,7 @@ import android.widget.TextView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.widget.library.R
 import com.widget.library.refresh.familiarrecyclerview.FamiliarRecyclerView
 import com.widget.library.refresh.header_smartrefresh.MaterialHeader
@@ -30,7 +32,7 @@ import com.widget.library.progress.ProgressBarCircularIndeterminate
 class DDRecyclerViewLayout : FamiliarRecyclerView, LifecycleObserver {
 
     var page = 1
-    private var refreshLayout: SmartRefreshLayout? = null
+    private lateinit var refreshLayout: SmartRefreshLayout
     val PAGE_SIZE = 10
     private var progress: ProgressBarCircularIndeterminate? = null
     private var topRefreshListener: OnCRefreshListener? = null
@@ -57,54 +59,73 @@ class DDRecyclerViewLayout : FamiliarRecyclerView, LifecycleObserver {
     fun bindRefreshLayoutAndSetRefreshListener(listener: OnCRefreshListener? = null, listener1: onCLoadMoreListener? = null) {
         if (this.parent is SmartRefreshLayout) {
             this.refreshLayout = this.parent as SmartRefreshLayout
-            //设置 Header 为 Material风格
-            this.refreshLayout?.refreshHeader = MaterialHeader(refreshLayout?.context).setColorSchemeColors(this.context.resources.getColor(R.color.header_color))
-            this.refreshLayout?.setEnableHeaderTranslationContent(false)
-            val footer = BallPulseFooter(refreshLayout?.context!!).setSpinnerStyle(SpinnerStyle.Translate)
-            this.refreshLayout?.refreshFooter = footer
-            refreshLayout?.refreshFooter?.setPrimaryColors(this.context.resources.getColor(R.color.footer_color))
-            this.refreshLayout?.setEnableFooterTranslationContent(true)
+            setDefaultHeader(this.refreshLayout)
+            setDefaultFooter(this.refreshLayout)
         }
         if (listener == null) {
             setEnableRefresh(false)
         } else {
             this.topRefreshListener = listener
-            this.refreshLayout?.setOnRefreshListener(listener)
+            this.refreshLayout.setOnRefreshListener(listener)
         }
         if (listener1 == null) {
             setEnableLoadeMore(false)
         } else {
-            this.refreshLayout?.setOnLoadmoreListener(listener1)
+            this.refreshLayout.setOnLoadmoreListener(listener1)
             setEnableAutoLoadeMore(true)
         }
+    }
+
+    /**
+    设置 Header 为 Material风格
+     */
+    fun setDefaultHeader(refreshLayout: SmartRefreshLayout) {
+        refreshLayout.isEnableOverScrollBounce = false//是否启用越界回弹
+        refreshLayout.isEnableScrollContentWhenLoaded = false//是否在加载完成时滚动列表显示新的内容
+//        refreshLayout.setEnableLoadMoreWhenContentNotFull(false)//是否在列表不满一页时候开启上拉加载功能
+        refreshLayout.setRefreshHeader(MaterialHeader(refreshLayout.context).setColorSchemeColors(this.context.resources.getColor(R.color.header_color)))
+        refreshLayout.setEnableHeaderTranslationContent(false)
+    }
+
+    /**
+    设置 Header 为 ClassicsFooter风格
+     */
+    @SuppressLint("RestrictedApi")
+    fun setDefaultFooter(refreshLayout: SmartRefreshLayout) {
+        val footer = ClassicsFooter(refreshLayout.context!!)
+        footer.spinnerStyle = SpinnerStyle.Translate
+//        refreshLayout.refreshFooter?.setPrimaryColors(this.context.resources.getColor(R.color.footer_color))
+        this.refreshLayout.setRefreshFooter(footer)
+        this.refreshLayout.setEnableFooterTranslationContent(true)
+
     }
 
     /**
      * 设置是否监听列表在滚动到底部时触发加载事件(默认启用)
      */
     fun setEnableAutoLoadeMore(boolean: Boolean) {
-        refreshLayout?.isEnableAutoLoadmore = boolean
+        refreshLayout.isEnableAutoLoadmore = boolean
     }
 
     /**
      * 设置是否启用上啦加载更多（默认启用）
      */
     fun setEnableLoadeMore(boolean: Boolean) {
-        refreshLayout?.isEnableLoadmore = boolean
+        refreshLayout.isEnableLoadmore = boolean
     }
 
     /**
      * 是否启用下拉刷新（默认启用）
      */
     fun setEnableRefresh(boolean: Boolean) {
-        refreshLayout?.isEnableRefresh = boolean
+        refreshLayout.isEnableRefresh = boolean
     }
 
     /**
      * 自动刷新
      */
     fun refreshBeginTop(delay: Int = 0) {
-        refreshLayout?.autoRefresh(delay)
+        refreshLayout.autoRefresh(delay)
     }
 
     /**
@@ -115,23 +136,23 @@ class DDRecyclerViewLayout : FamiliarRecyclerView, LifecycleObserver {
         progress ?: let {
             //防止recyclerview单独使用的情况
             if (this.parent is SmartRefreshLayout && this.parent.parent is FrameLayout) {
-                progress = ((this.parent as SmartRefreshLayout).parent as FrameLayout).findViewById<ProgressBarCircularIndeterminate>(R.id.progress_refresh)
+                progress = ((this.parent as SmartRefreshLayout).parent as FrameLayout).findViewById(R.id.progress_refresh)
             }
         }
         progress?.visibility = View.VISIBLE
         topRefreshListener?.onRefresh()
-        refreshLayout?.isEnableRefresh = false
+        refreshLayout.isEnableRefresh = false
     }
 
 
     fun refresComplete() {
-        refreshLayout?.isEnableRefresh = true
-        refreshLayout?.finishLoadmore(100)
-        refreshLayout?.finishRefresh(100)
+        refreshLayout.isEnableRefresh = true
+        refreshLayout.finishLoadmore(100)
+        refreshLayout.finishRefresh(100)
         progress ?: let {
             //防止recyclerview单独使用的情况
             if (this.parent is SmartRefreshLayout && this.parent.parent is FrameLayout) {
-                progress = ((this.parent as SmartRefreshLayout).parent as FrameLayout).findViewById<ProgressBarCircularIndeterminate>(R.id.progress_refresh)
+                progress = ((this.parent as SmartRefreshLayout).parent as FrameLayout).findViewById(R.id.progress_refresh)
             }
         }
         progress?.visibility = View.GONE
@@ -141,7 +162,7 @@ class DDRecyclerViewLayout : FamiliarRecyclerView, LifecycleObserver {
     }
 
     fun getRefreshLayouts(): SmartRefreshLayout {
-        return refreshLayout!!
+        return refreshLayout
     }
 
     /**

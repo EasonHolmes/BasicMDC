@@ -16,7 +16,6 @@
             android:background="@color/stalls_white_bg_color"
             android:tag="layout/include_refresh_layout_0"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:srlEnablePreviewInEditMode="true"
             >
 
             <com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
@@ -25,6 +24,7 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         <com.widget.library.progress.ProgressBarCircularIndeterminate

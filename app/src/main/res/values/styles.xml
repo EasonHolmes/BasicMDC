@@ -36,5 +36,14 @@
     <style name="toolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     </style>
 
+    <!--透明dialog-->
+    <style name="SimpleDialogss" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
 
 </resources>

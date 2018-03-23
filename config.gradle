@@ -73,10 +73,10 @@ ext {
             libKotlinDatabinding: "com.android.databinding:compiler:3.0.0"
     ]
 
-    //自己的库
-    myDependencies = [
-            libMyUtils        : 'com.utilslibrary.lib:sdk-utilslibrary:0.0.3',
-            libMywidgetlibrary: 'com.widgetlibrary.lib:sdk-widgetlibrary:0.0.6'
-
-    ]
+//    //自己的库
+//    myDependencies = [
+//            libMyUtils        : 'com.utilslibrary.lib:sdk-utilslibrary:0.0.3',
+//            libMywidgetlibrary: 'com.widgetlibrary.lib:sdk-widgetlibrary:0.0.7'
+//
+//    ]
 }

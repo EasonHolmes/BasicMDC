@@ -7,7 +7,7 @@ def cfg = rootProject.ext.android
 def commonLibrarys = rootProject.ext.appDependencies
 def widgetLibrarys = rootProject.ext.widgetDependencies
 def utilsLibrarys = rootProject.ext.utilsDependencies
-def myLibrarys = rootProject.ext.myDependencies
+//def myLibrarys = rootProject.ext.myDependencies
 def kapts = rootProject.ext.appDependenciesKapt
 def url = rootProject.ext.url
 
@@ -107,7 +107,9 @@ dependencies {
     commonLibrarys.each { k, v -> implementation v }
     utilsLibrarys.each { k, v -> implementation v }
     widgetLibrarys.each { k, v -> implementation v }
-    myLibrarys.each { k, v -> implementation v }
+//    myLibrarys.each { k, v -> implementation v }
     kapts.each { k, v -> kapt v }
+    implementation project(':utilslibrary')
+    implementation project(':widgetlibrary')
 
 }

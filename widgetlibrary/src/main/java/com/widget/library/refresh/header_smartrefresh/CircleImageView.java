@@ -26,6 +26,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
@@ -80,7 +81,7 @@ public class CircleImageView extends ImageView {
     }
 
     private boolean elevationSupported() {
-        return Build.VERSION.SDK_INT >= 21;
+        return android.os.Build.VERSION.SDK_INT >= 21;
     }
 
     @Override
@@ -124,11 +125,11 @@ public class CircleImageView extends ImageView {
         } else {
             //noinspection deprecation
             setBackgroundColor(context.getResources().getColor(colorRes));
-        } 
+        }
     }
 
     @Override
-    public void setBackgroundColor(int color) {
+    public void setBackgroundColor(@ColorInt int color) {
         if (getBackground() instanceof ShapeDrawable) {
             ((ShapeDrawable) getBackground()).getPaint().setColor(color);
         }

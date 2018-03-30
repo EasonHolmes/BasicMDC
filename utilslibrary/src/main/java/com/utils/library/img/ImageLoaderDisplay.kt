@@ -112,7 +112,7 @@ class ImageLoaderDisplay {
          * 直接加载图片
          *
          */
-        fun imageLoader(img: ImageView? = null,
+        fun imageLoader(img: ImageView,
                         imgUrl: String = "",
                         file: File? = null,
                         Request: GlideRequest<Drawable>? = null,
@@ -126,13 +126,13 @@ class ImageLoaderDisplay {
             var glideRequest = Request
 
             //为空也使用加载网络默认配置
-            if (glideRequest == null && imgUrl.isNotEmptyStr() && img != null) {
+            if (glideRequest == null && imgUrl.isNotEmptyStr()) {
                 glideRequest = getGlideOnLine(img.context, imgUrl)
 
-            } else if (glideRequest == null && file != null && img != null) {//加载本地图片配置
+            } else if (glideRequest == null && file != null) {//加载本地图片配置
                 glideRequest = getGlideLocal(img.context, file)
 
-            } else if (glideRequest == null && defResourceId != 0 && img != null) { //不加载网络图片，也不加载本地图片，默认加载占位图
+            } else if (glideRequest == null && defResourceId != 0) { //不加载网络图片，也不加载本地图片，默认加载占位图
                 glideRequest = getGlideLocal(img.context, defResourceId)
             }
             if (glideRequest != null) {

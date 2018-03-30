@@ -32,7 +32,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     librarys.each { k, v -> implementation v }
     kapts.each { k, v -> kapt v }
-    compile "org.jetbrains.kotlin:kotlin-reflect:1.2.30"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.2.30"
 }
 //这样可以看到源码
 task sourcesJar(type: Jar) {
@@ -50,7 +50,7 @@ uploadArchives{
             repository(url: System.properties['mavenpath'])
             pom.groupId = 'com.utilslibrary.lib'
             pom.artifactId = 'sdk-utilslibrary'
-            pom.version = '0.0.4'
+            pom.version = '0.0.5'
         }
     }
 }

@@ -6,6 +6,7 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.os.SystemClock
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.SimpleItemAnimator
 import android.text.TextUtils
 import android.util.AttributeSet
@@ -24,17 +25,18 @@ import com.widget.library.refresh.header_smartrefresh.MaterialHeader
 import com.widget.library.refresh.listener.OnCRefreshListener
 import com.widget.library.refresh.listener.onCLoadMoreListener
 import com.widget.library.progress.ProgressBarCircularIndeterminate
+import com.widget.library.progress.ProgressWheel
 
 
 /**
  * Created by cuiyang on 16/6/5.
  */
-class DDRecyclerViewLayout : FamiliarRecyclerView, LifecycleObserver {
+open class DDRecyclerViewLayout : FamiliarRecyclerView {
 
     var page = 1
     private lateinit var refreshLayout: SmartRefreshLayout
     val PAGE_SIZE = 10
-    private var progress: ProgressBarCircularIndeterminate? = null
+    private var progress: ProgressWheel? = null
     private var topRefreshListener: OnCRefreshListener? = null
 
     constructor(context: Context) : super(context) {
@@ -83,7 +85,7 @@ class DDRecyclerViewLayout : FamiliarRecyclerView, LifecycleObserver {
         refreshLayout.isEnableOverScrollBounce = false//是否启用越界回弹
         refreshLayout.isEnableScrollContentWhenLoaded = false//是否在加载完成时滚动列表显示新的内容
 //        refreshLayout.setEnableLoadMoreWhenContentNotFull(false)//是否在列表不满一页时候开启上拉加载功能
-        refreshLayout.setRefreshHeader(MaterialHeader(refreshLayout.context).setColorSchemeColors(this.context.resources.getColor(R.color.header_color)))
+        refreshLayout.refreshHeader = MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources,R.color.header_color,null))
         refreshLayout.setEnableHeaderTranslationContent(false)
     }
 

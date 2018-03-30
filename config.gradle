@@ -7,7 +7,7 @@
 // apply from: "config.gradle"
 ext {
     android = [
-            buildToolsVersion: "27.0.2",
+            buildToolsVersion: "27.0.3",
             compileSdkVersion: 27,
             minSdkVersion    : 17,
             targetSdkVersion : 27,
@@ -21,9 +21,10 @@ ext {
             "release_debug": "http://test.haoqipei.com/"
     ]
 
-    supportVersion = "26.1.0"
-    retrofitVersion = "2.3.0"
-    rxLifecycleVersion = "2.2.0"
+    supportVersion = "27.0.1"
+    retrofitVersion = "2.4.0"
+    rxLifecycleVersion = "2.2.1"
+    glideVersion = "4.6.1"
 
     //widget使用库
     widgetDependencies = [
@@ -34,35 +35,36 @@ ext {
             libRefreshLayout         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3',
     ]
     widgetDependenciesKapt = [
-            libKotlinDatabinding: "com.android.databinding:compiler:3.0.0"
+//            libKotlinDatabinding: "com.android.databinding:compiler:3.0.0"
     ]
 
     //utils使用库
     utilsDependencies = [
-            libGlide                : 'com.github.bumptech.glide:glide:4.2.0',
-            libGlideIntegration     : 'com.github.bumptech.glide:okhttp3-integration:4.2.0',
-            libGlideFormations      : 'jp.wasabeef:glide-transformations:3.0.1',
+            libGlide                : "com.github.bumptech.glide:glide:${glideVersion}",
+            libGlideIntegration     : "com.github.bumptech.glide:okhttp3-integration:${glideVersion}",
+            libGlideFormations      : 'jp.wasabeef:glide-transformations:3.1.1',
             libRetrofit             : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             libRetrofitGson         : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             libRetrofitRxadapter    : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             libKotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             libXlog                 : 'com.elvishew:xlog:1.3.0',
-            libRxJava               : 'io.reactivex.rxjava2:rxjava:2.1.5',
-            libRxAndroid            : 'io.reactivex.rxjava2:rxandroid:2.0.1',
+            libRxJava               : 'io.reactivex.rxjava2:rxjava:2.1.12',
+            libRxAndroid            : 'io.reactivex.rxjava2:rxandroid:2.0.2',
             libRxLifecycle          : "com.trello.rxlifecycle2:rxlifecycle:${rxLifecycleVersion}",
+            libRxLifecycleAndroid   : "com.trello.rxlifecycle2:rxlifecycle-android:${rxLifecycleVersion}",
             libRxLifecycleComponents: "com.trello.rxlifecycle2:rxlifecycle-components:${rxLifecycleVersion}",
-            libOkhttp               : 'com.squareup.okhttp3:okhttp:3.9.0',
+            libOkhttp               : 'com.squareup.okhttp3:okhttp:3.10.0',
     ]
     utilsDependenciesKapt = [
-            libKotlinDatabinding: "com.android.databinding:compiler:3.0.0",
-            libGlideCompiler    : 'com.github.bumptech.glide:compiler:4.2.0'
+//            libKotlinDatabinding: "com.android.databinding:compiler:3.0.0",
+libGlideCompiler: "com.github.bumptech.glide:compiler:${glideVersion}"
     ]
 
     //基础库
     appDependencies = [
             libSupportAppcompatV7: "com.android.support:appcompat-v7:${supportVersion}",
             libSupportAppcompatV4: "com.android.support:support-v4:${supportVersion}",
-            libRxpermissions     : 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar',
+            libRxpermissions     : 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar',
             libConstraintLayout  : 'com.android.support.constraint:constraint-layout:1.0.2',
             libXlog              : 'com.elvishew:xlog:1.3.0',
             //libKotlin : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -70,7 +72,7 @@ ext {
     ]
     appDependenciesKapt = [
             //kotlin 兼容databinding需要使用的
-            libKotlinDatabinding: "com.android.databinding:compiler:3.0.0"
+//            libKotlinDatabinding: "com.android.databinding:compiler:3.0.0"
     ]
 
 //    //自己的库

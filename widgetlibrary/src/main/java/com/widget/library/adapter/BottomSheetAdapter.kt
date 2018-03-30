@@ -20,7 +20,7 @@ class BottomSheetAdapter : RecyclerView.Adapter<BottomSheetAdapter.DefineViewHol
     val item_data = ArrayList<BottomSheetListEntity>()
 
     override fun getItemCount(): Int {
-        return item_data?.size ?: 0
+        return item_data.size ?: 0
     }
 
     override fun onBindViewHolder(viewHolder: DefineViewHolder, position: Int) {

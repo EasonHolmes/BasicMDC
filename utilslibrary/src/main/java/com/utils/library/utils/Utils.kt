@@ -28,54 +28,6 @@ object Utils {
         val px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics)
         return px.toInt()
     }
-
-    fun daysBetween(smdate: String, bdate: String, sdf: SimpleDateFormat): Int {
-        val cal = Calendar.getInstance()
-        cal.time = sdf.parse(smdate)
-        val time1 = cal.timeInMillis
-        cal.time = sdf.parse(bdate)
-        val time2 = cal.timeInMillis
-        val betweenDays = (time2 - time1) / (1000 * 3600 * 24)
-        return Integer.parseInt(betweenDays.toString())
-    }
-
-    /**
-     * 两个时间相差距离多少天多少小时多少分多少秒
-     *
-     * @param str1 时间参数 1 格式：1990-01-01 12:00:00
-     * @param str2 时间参数 2 格式：2009-01-01 12:00:00
-     * @return String 返回值为：xx天xx小时xx分xx秒
-     */
-    fun getDistanceTime(str1: String, str2: String, df: SimpleDateFormat): String {
-        val one: Date
-        val two: Date
-        val day: Long = 0
-        var hour: Long = 0
-        var min: Long = 0
-        val sec: Long = 0
-        try {
-            one = df.parse(str1)
-            two = df.parse(str2)
-            val time1 = one.time
-            val time2 = two.time
-            val diff: Long
-            if (time1 < time2) {
-                diff = time2 - time1
-            } else {
-                diff = time1 - time2
-            }
-            //            day = diff / (24 * 60 * 60 * 1000);
-            hour = diff / (60 * 60 * 1000) - day * 24
-            min = diff / (60 * 1000) - day * 24 * 60 - hour * 60
-            //            sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-
-        //        return day + "天" + hour + "小时" + min + "分" + sec + "秒";
-        return if (hour > 0) hour.toString() + "小时" else if (min > 0) min.toString() + "分钟" else "1分钟"
-    }
-
     /**
      * 当我们判断出当前设备打开允许模拟位置时，在判断一下手机系统的版本，若为Android M以及以上，就屏蔽不管。
      * 可能部分同学会问那么android M上的选择模拟位置信息应用有影响么？答案是否定的，由于我们的App没有添加允许模拟位置的权限，所以其根本不会出现在选择模拟位置应用列表，进而不会执行模拟位置的操作。

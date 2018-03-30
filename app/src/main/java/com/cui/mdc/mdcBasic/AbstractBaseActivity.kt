@@ -6,6 +6,7 @@ import android.databinding.OnRebindCallback
 import android.databinding.ViewDataBinding
 import android.os.*
 import android.support.transition.TransitionManager
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
@@ -17,6 +18,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.utils.library.utils.isNotEmptyStr
 import com.widget.library.utils.StatusBarUtil
 import io.reactivex.disposables.Disposable
+import org.json.JSONObject
+import retrofit2.HttpException
 
 /**
  * 为防止 Glide会出现You cannot start a load for a destroyed activity页面关闭recyclerview不再滑动 使用Lifecycle写在DDRecyclerviewLyoaut中在onStop生命周期
@@ -34,7 +37,7 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
 
 
     //一个界面会有一个mActivityHelper
-    private val mActivityHelper: ActivityHelper by lazy { ActivityHelper(this) }
+    val mActivityHelper: ActivityHelper by lazy { ActivityHelper(this) }
     private val rxPermissions: RxPermissions by lazy { RxPermissions(this) }
 
 
@@ -74,6 +77,15 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
         // 经测试在代码里直接声明透明状态栏更有效 这个设置会在一些机子上有半透明效果
         //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+    }
+
+    protected fun setLightbarTheme() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            StatusBarUtil.setColor(this, ResourcesCompat.getColor(resources,R.color.stalls_white_bg_color,null), 1)
+            StatusBarUtil.setLightMode(this)
+        } else {
+            StatusBarUtil.setColor(this, resources.getColor(R.color.black_trans_background), 1)
+        }
     }
 
     /**
@@ -156,19 +168,26 @@ abstract class AbstractBaseActivity<B : ViewDataBinding, T : BaseContract.BasePr
      *
      * @param error
      */
-    override fun refreshError(error: String) {
-        //activity.getActivityHelper().dismissSimpleLoadDialog()
-        if (error.isNotEmptyStr()) {
-            if (error.contains("404")) {
-//            mActivityHelper.dialogMessage("未找到请求地址404\n" + error)
-            } else if (error.contains("500")) {
-//            getActivityHelper().dialogMessage("请求地址访问错误500\n" + error)
-            } else if (error.contains("SocketTimeoutException")) {
-//            getActivityHelper().dialogMessage("连接超时请重试SocketTimeoutException\n" + error)
-            } else if (error.contains("no address") || error.contains("Failed to connect to")) {
-//            getActivityHelper().dialogMessage("没有网络连接no address or Failed to connect to\n" + error)
-            } else {
-//            getActivityHelper().ErrordialogMessageByMine(error)
+    override fun refreshError(error: Throwable?) {
+        if (error is HttpException) {
+//            val jsonObject = JSONObject(error.response().errorBody()?.string())
+//            val errorContent = jsonObject.optString("message")
+//            if (errorContent.isNotEmptyStr())
+//                mActivityHelper.ErrordialogMessageByMineOrServerErrorStatusCode(errorContent)
+        } else {
+            val errorStr = error?.message
+            if (errorStr.isNotEmptyStr()) {
+                if (errorStr!!.contains("404")) {
+//                    mActivityHelper.dialogMessage("未找到请求地址404\n" + error)
+                } else if (errorStr.contains("500")) {
+//                    mActivityHelper.dialogMessage("请求地址访问错误500\n" + error)
+                } else if (errorStr.contains("SocketTimeoutException")) {
+//                    mActivityHelper.dialogMessage("连接超时请重试SocketTimeoutException\n" + error)
+                } else if (errorStr.contains("no address") || errorStr.contains("Failed to connect to")) {
+//                    mActivityHelper.dialogMessage("没有网络连接no address or Failed to connect to\n" + error)
+                } else {
+//                    mActivityHelper.ErrordialogMessageByMineOrServerErrorStatusCode(error?.toString())
+                }
             }
         }
     }

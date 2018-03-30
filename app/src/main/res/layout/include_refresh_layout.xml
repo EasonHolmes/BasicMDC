@@ -27,7 +27,7 @@
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        <com.widget.library.progress.ProgressBarCircularIndeterminate
+        <com.widget.library.progress.ProgressWheel
             android:id="@+id/progress_refresh"
             android:layout_width="45dp"
             android:layout_height="45dp"

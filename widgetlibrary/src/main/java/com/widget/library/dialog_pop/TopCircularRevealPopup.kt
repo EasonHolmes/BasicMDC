@@ -28,7 +28,7 @@ import com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
 class TopCircularRevealPopup(private val DropView: View) : PopupWindow(DropView.context), View.OnClickListener {
 
     val recyclerview: DDRecyclerViewLayout
-    lateinit var animationLayout: View
+    var animationLayout: View
     private val imgBackground: ImageView? = null
     private val root_layout: RelativeLayout
     private val parent_layout: FrameLayout

@@ -12,7 +12,7 @@ interface BaseContract {
          *
          * @param error
          */
-        fun refreshError(error: String)
+        fun refreshError(error: Throwable?)
 
     }
 

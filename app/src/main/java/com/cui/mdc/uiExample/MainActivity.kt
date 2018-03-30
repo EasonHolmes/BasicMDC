@@ -1,6 +1,7 @@
 package com.cui.mdc.uiExample;
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -19,6 +20,7 @@ import com.widget.library.refresh.listener.OnCRefreshListener
 import com.widget.library.refresh.listener.onCLoadMoreListener
 import com.widget.library.utils.StatusBarUtil
 import android.view.LayoutInflater
+import com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
 import java.util.Collections.addAll
 
 

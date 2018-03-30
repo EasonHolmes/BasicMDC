@@ -23,6 +23,8 @@ import com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
 
 
 import io.reactivex.disposables.Disposable
+import org.json.JSONObject
+import retrofit2.HttpException
 
 
 /**
@@ -34,7 +36,7 @@ abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePr
         View.OnClickListener, BaseContract.BaseView {
 
     private val EXTRA_PARENT_FRAGMENT_CLASS_NAME = "Base_Extra_ParentFragmentClassName"
-    protected val lastFragmentName: String by lazy(LazyThreadSafetyMode.NONE) { getActivity().intent.getStringExtra(EXTRA_PARENT_FRAGMENT_CLASS_NAME) }
+    protected val lastFragmentName: String by lazy(LazyThreadSafetyMode.NONE) { activity.intent.getStringExtra(EXTRA_PARENT_FRAGMENT_CLASS_NAME) }
 
     protected val PAGESIZE: Int = 20
     protected var mToolbar: Toolbar? = null
@@ -44,14 +46,15 @@ abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePr
     protected lateinit var presenter: T//在oncreate中初始化P在Ondestory中释放V
     protected lateinit var binding: B
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate<B>(inflater!!, setDataBindingContentViewId(), container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding = DataBindingUtil.inflate<B>(inflater, setDataBindingContentViewId(), container, false)
         mContext = container!!.context
         activity = getActivity() as AbstractBaseActivity<*, *>
         return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter = initPresenter()
         lifecycle.addObserver(presenter as AbstractBasePresenter<*>)
@@ -109,22 +112,31 @@ abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePr
 
      * @param error
      */
-    override fun refreshError(error: String) {
-//        activity.getActivityHelper().dismissSimpleLoadDialog()
-        if (error.isNotEmptyStr()) {
-            if (error.contains("404")) {
-//                activity.getActivityHelper().dialogMessage("未找到请求地址404\n" + error)
-            } else if (error.contains("500")) {
-//                activity.getActivityHelper().dialogMessage("请求地址访问错误500\n" + error)
-            } else if (error.contains("SocketTimeoutException")) {
-//                activity.getActivityHelper().dialogMessage("连接超时请重试SocketTimeoutException\n" + error)
-            } else if (error.contains("no address") || error.contains("Failed to connect to")) {
-//                activity.getActivityHelper().dialogMessage("没有网络连接no address or Failed to connect to\n" + error)
-            } else {
-//                activity.getActivityHelper().ErrordialogMessageByMine(error);
+    override fun refreshError(error: Throwable?) {
+//        activity.mActivityHelper.dismissSimpleLoadDialog()
+        if (error is HttpException) {
+//            val jsonObject = JSONObject(error.response().errorBody()?.string())
+//            val errorContent = jsonObject.optString("message")
+//            if (errorContent.isNotEmptyStr())
+//                activity.mActivityHelper.ErrordialogMessageByMineOrServerErrorStatusCode(errorContent)
+        } else {
+            val errorStr = error?.message
+            if (errorStr.isNotEmptyStr()) {
+                if (errorStr!!.contains("404")) {
+//                    activity.mActivityHelper.dialogMessage("未找到请求地址404\n" + error)
+                } else if (errorStr.contains("500")) {
+//                    activity.mActivityHelper.dialogMessage("请求地址访问错误500\n" + error)
+                } else if (errorStr.contains("SocketTimeoutException")) {
+//                    activity.mActivityHelper.dialogMessage("连接超时请重试SocketTimeoutException\n" + error)
+                } else if (errorStr.contains("no address") || errorStr.contains("Failed to connect to")) {
+//                    activity.mActivityHelper.dialogMessage("没有网络连接no address or Failed to connect to\n" + error)
+                } else {
+//                    activity.mActivityHelper.ErrordialogMessageByMineOrServerErrorStatusCode(error?.toString())
+                }
             }
         }
     }
+
 
 
     protected fun setViewClickListener(vararg views: View) {

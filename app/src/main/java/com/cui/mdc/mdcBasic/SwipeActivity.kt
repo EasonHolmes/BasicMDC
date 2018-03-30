@@ -8,6 +8,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.MotionEvent
@@ -117,7 +118,7 @@ open class SwipeActivity : RxAppCompatActivity() {
         constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {}
 
         fun replaceLayer(activity: Activity) {
-            leftShadow = activity.resources.getDrawable(R.drawable.left_shadow)
+            leftShadow = ResourcesCompat.getDrawable(activity.resources,R.drawable.left_shadow,null)
             touchSlop = (touchSlopDP * activity.resources.displayMetrics.density).toInt()
             sideWidth = (sideWidthInDP * activity.resources.displayMetrics.density).toInt()
             mActivity = activity

@@ -10,6 +10,7 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
+import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.util.TypedValue
 
@@ -33,7 +34,7 @@ class ProgressBarCircularIndeterminate(context: Context, attrs: AttributeSet) : 
         // Color by resource
         val bacgroundColor = attrs.getAttributeResourceValue(ANDROIDXML, "background", -1)
         if (bacgroundColor != -1) {
-            setBackgroundColor(resources.getColor(bacgroundColor))
+            setBackgroundColor(ResourcesCompat.getColor(resources,bacgroundColor,null))
         } else {
             // Color by hexadecimal
             val background = attrs.getAttributeIntValue(ANDROIDXML, "background", -1)
@@ -145,7 +146,7 @@ class ProgressBarCircularIndeterminate(context: Context, attrs: AttributeSet) : 
         temp.drawArc(RectF(0f, 0f, width.toFloat(), height.toFloat()), arcO.toFloat(), arcD.toFloat(), true, paint)
         val transparentPaint = Paint()
         transparentPaint.isAntiAlias = true
-        transparentPaint.color = resources.getColor(android.R.color.transparent)
+        transparentPaint.color = ResourcesCompat.getColor(resources,android.R.color.transparent,null)
         transparentPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
         temp.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), (width / 2 - dpToPx(4f, resources)).toFloat(), transparentPaint)
 

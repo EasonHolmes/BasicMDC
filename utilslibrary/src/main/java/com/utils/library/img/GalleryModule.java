@@ -3,6 +3,7 @@ package com.utils.library.img;
 
 import android.content.Context;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -23,6 +24,9 @@ import com.utils.library.R;
 
 import java.io.InputStream;
 
+/**
+ * @author cuiyang
+ */
 @GlideModule
 public final class GalleryModule extends AppGlideModule {
     // Intentionally empty.
@@ -43,10 +47,9 @@ public final class GalleryModule extends AppGlideModule {
         setMemoryBigSize(context, builder);
         ViewTarget.setTagId(R.id.glide_tag_id);
     }
-
     @Override
-    public void registerComponents(Context context, Glide glide, Registry registry) {
-        //配置glide网络加载框架
+    public void registerComponents(@NonNull Context context, @NonNull Glide glide,
+                                   @NonNull Registry registry) {
         registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
     }
 

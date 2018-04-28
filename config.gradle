@@ -21,7 +21,7 @@ ext {
             "release_debug": "http://test.haoqipei.com/"
     ]
 
-    supportVersion = "27.0.1"
+    supportVersion = "27.1.1"
     retrofitVersion = "2.4.0"
     rxLifecycleVersion = "2.2.1"
     glideVersion = "4.6.1"

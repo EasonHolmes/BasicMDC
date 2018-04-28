@@ -2,6 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:wheel="http://schemas.android.com/tools"
     >
 
     <FrameLayout
@@ -27,12 +28,12 @@
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        <com.widget.library.progress.ProgressWheel
+        <ProgressBar
             android:id="@+id/progress_refresh"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
-            android:background="@color/recyclerview_center_progress_color"
-            android:visibility="gone"/>
+            android:visibility="gone"
+           />
     </FrameLayout>
 </layout>

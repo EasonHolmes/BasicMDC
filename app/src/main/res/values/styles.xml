@@ -1,49 +1,64 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="MyTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryDark">@color/app_status_color_fu</item>
+        <item name="colorAccent">@color/app_color</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:windowActionBar">false</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
-
-    <style name="WelTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- toolbar（actionbar）颜色 -->
-        <item name="colorPrimary">@color/app_color</item>
-        <!-- 状态栏颜色 -->
-        <!--<item name="colorPrimaryDark">@color/transparent</item>-->
-        <!--主题色-->
-        <item name="colorAccent">@color/app_color</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="android:navigationBarColor">@color/app_color</item>
-        <!--欢迎页不用因为会在视觉上延迟因为是透明的了。这个看application里的消耗时间所以欢迎页直接不使用-->
+        <!--activity透明背使应用启动没有白屏在使用滑动关闭时使用-->
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+        <!--<item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/slide_out_right</item>-->
+        <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
     </style>
 
-    <!--toolbarMenu菜单的样式-->
-    <style name="MenuTextStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:itemBackground">@color/white</item>
-        <item name="android:textColor">@android:color/black</item>
+    <style name="Theme.MyAppTheme" parent="AppBaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!--<item name="android:windowBackground">@drawable/splash_icon</item>-->
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="MenuTextStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextLabel" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/app_text_color</item>
+        <item name="android:textSize">14sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/app_color</item>
+        <!--&lt;!&ndash; 底部线 默认颜色 &ndash;&gt;-->
+        <item name="colorControlNormal">@color/app_text_color</item>
+        <!--&lt;!&ndash; 底部线 EditText激活时颜色 &ndash;&gt;-->
+        <item name="colorControlActivated">@color/app_color</item>
+    </style>
+
+    <style name="MyErrorTipTextStyle">
+        <item name="android:textColor">@color/app_error_red_color</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="tabTxtStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="toolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     </style>
-
-    <!--透明dialog-->
-    <style name="SimpleDialogss" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    <style name="toolbarThemeLihgt" parent="ThemeOverlay.AppCompat.Light">
     </style>
 
-
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

@@ -2,7 +2,6 @@ package com.widget.library.refresh.recyclerview
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.os.SystemClock
@@ -14,17 +13,17 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.widget.library.R
+import com.widget.library.R.id.progress
 import com.widget.library.refresh.familiarrecyclerview.FamiliarRecyclerView
 import com.widget.library.refresh.header_smartrefresh.MaterialHeader
 import com.widget.library.refresh.listener.OnCRefreshListener
 import com.widget.library.refresh.listener.onCLoadMoreListener
-import com.widget.library.progress.ProgressBarCircularIndeterminate
 import com.widget.library.progress.ProgressWheel
 
 
@@ -36,7 +35,7 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
     var page = 1
     private lateinit var refreshLayout: SmartRefreshLayout
     val PAGE_SIZE = 10
-    private var progress: ProgressWheel? = null
+    private var progress: ProgressBar? = null
     private var topRefreshListener: OnCRefreshListener? = null
 
     constructor(context: Context) : super(context) {
@@ -85,7 +84,7 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
         refreshLayout.isEnableOverScrollBounce = false//是否启用越界回弹
         refreshLayout.isEnableScrollContentWhenLoaded = false//是否在加载完成时滚动列表显示新的内容
 //        refreshLayout.setEnableLoadMoreWhenContentNotFull(false)//是否在列表不满一页时候开启上拉加载功能
-        refreshLayout.refreshHeader = MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources,R.color.header_color,null))
+        refreshLayout.refreshHeader = MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources, R.color.header_color, null))
         refreshLayout.setEnableHeaderTranslationContent(false)
     }
 
@@ -134,33 +133,22 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
      * 刷新 中间显示progress
      */
     fun refreshBeginCenter() {
-        //为空时进行初始化
-        progress ?: let {
-            //防止recyclerview单独使用的情况
-            if (this.parent is SmartRefreshLayout && this.parent.parent is FrameLayout) {
-                progress = ((this.parent as SmartRefreshLayout).parent as FrameLayout).findViewById(R.id.progress_refresh)
-            }
+//        为空时进行初始化
+        if (progress == null && (this.parent is SmartRefreshLayout && this.parent.parent is FrameLayout)) {
+            progress = (this.parent.parent as FrameLayout).findViewById(R.id.progress_refresh)
         }
         progress?.visibility = View.VISIBLE
         topRefreshListener?.onRefresh()
-        refreshLayout.isEnableRefresh = false
     }
 
 
-    fun refresComplete() {
-        refreshLayout.isEnableRefresh = true
-        refreshLayout.finishLoadmore(100)
-        refreshLayout.finishRefresh(100)
-        progress ?: let {
-            //防止recyclerview单独使用的情况
-            if (this.parent is SmartRefreshLayout && this.parent.parent is FrameLayout) {
-                progress = ((this.parent as SmartRefreshLayout).parent as FrameLayout).findViewById(R.id.progress_refresh)
-            }
+    fun refresComplete(delay: Int = -1) {
+        refreshLayout.finishLoadmore(if (delay == -1) 50 else delay)
+        refreshLayout.finishRefresh(if (delay == -1) 50 else delay)
+        //  防止recyclerview单独使用的情况
+        if (progress != null) {
+            progress?.visibility = View.GONE
         }
-        progress?.visibility = View.GONE
-//        progress?.let {
-//            it.visibility = View.GONE
-//        }
     }
 
     fun getRefreshLayouts(): SmartRefreshLayout {

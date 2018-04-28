@@ -19,12 +19,10 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.widget.library.R
-import com.widget.library.R.id.progress
 import com.widget.library.refresh.familiarrecyclerview.FamiliarRecyclerView
 import com.widget.library.refresh.header_smartrefresh.MaterialHeader
 import com.widget.library.refresh.listener.OnCRefreshListener
 import com.widget.library.refresh.listener.onCLoadMoreListener
-import com.widget.library.progress.ProgressWheel
 
 
 /**

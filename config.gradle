@@ -34,9 +34,9 @@ ext {
             libKotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             libRefreshLayout         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3',
     ]
-    widgetDependenciesKapt = [
-//            libKotlinDatabinding: "com.android.databinding:compiler:3.0.0"
-    ]
+//    widgetDependenciesKapt = [
+//            libKotlinDatabinding: "com.android.databinding:compiler:3.1.2"
+//    ]
 
     //utils使用库
     utilsDependencies = [
@@ -56,7 +56,7 @@ ext {
             libOkhttp               : 'com.squareup.okhttp3:okhttp:3.10.0',
     ]
     utilsDependenciesKapt = [
-//            libKotlinDatabinding: "com.android.databinding:compiler:3.0.0",
+//            libKotlinDatabinding: "com.android.databinding:compiler:3.1.2",
 libGlideCompiler: "com.github.bumptech.glide:compiler:${glideVersion}"
     ]
 

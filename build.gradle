@@ -8,11 +8,11 @@ buildscript {
         maven { url "https://maven.google.com" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        // 上传至maven仓库需要 具体版本号根据项目环境去定，github插件中文档有说明
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
     }
 }
 
@@ -24,6 +24,7 @@ allprojects {
         maven { url "https://maven.google.com" }
         maven { url "https://jitpack.io" }
     }
+
 }
 
 task clean(type: Delete) {

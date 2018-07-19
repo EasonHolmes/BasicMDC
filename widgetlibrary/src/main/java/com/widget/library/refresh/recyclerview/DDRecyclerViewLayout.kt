@@ -20,7 +20,6 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.widget.library.R
 import com.widget.library.refresh.familiarrecyclerview.FamiliarRecyclerView
-import com.widget.library.refresh.header_smartrefresh.MaterialHeader
 import com.widget.library.refresh.listener.OnCRefreshListener
 import com.widget.library.refresh.listener.onCLoadMoreListener
 
@@ -32,9 +31,10 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
 
     var page = 1
     private lateinit var refreshLayout: SmartRefreshLayout
+    private var topRefreshListener: OnCRefreshListener? = null
+    private var refreshLoadMoreListener: onCLoadMoreListener? = null
     val PAGE_SIZE = 10
     private var progress: ProgressBar? = null
-    private var topRefreshListener: OnCRefreshListener? = null
 
     constructor(context: Context) : super(context) {
         init()
@@ -70,9 +70,25 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
         if (listener1 == null) {
             setEnableLoadeMore(false)
         } else {
-            this.refreshLayout.setOnLoadmoreListener(listener1)
+            this.refreshLoadMoreListener = listener1
+            this.refreshLayout.setOnLoadMoreListener(listener1)
             setEnableAutoLoadeMore(true)
         }
+    }
+
+    /**
+     * 用来判断是否有设置或需要下拉刷新
+     */
+    fun getRefreshListener(): OnCRefreshListener? {
+        return topRefreshListener
+    }
+
+    /**
+     * 用来判断是否有设置或需要上拉加载，
+     * 用isEnableLoadMore方法不准确因为无数据就会变成false再下拉刷新时 上拉加载就不能用了。而在下拉刷新强制开启又有可能会让不需要上拉加载的页面开启该功能
+     */
+    fun getLoadmoreListener(): onCLoadMoreListener? {
+        return refreshLoadMoreListener
     }
 
     /**
@@ -82,7 +98,8 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
         refreshLayout.isEnableOverScrollBounce = false//是否启用越界回弹
         refreshLayout.isEnableScrollContentWhenLoaded = false//是否在加载完成时滚动列表显示新的内容
 //        refreshLayout.setEnableLoadMoreWhenContentNotFull(false)//是否在列表不满一页时候开启上拉加载功能
-        refreshLayout.refreshHeader = MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources, R.color.header_color, null))
+//        refreshLayout.refreshHeader = MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources, R.color.header_color, null))
+        refreshLayout.setRefreshHeader(com.scwang.smartrefresh.header.MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources, R.color.header_color, null)))
         refreshLayout.setEnableHeaderTranslationContent(false)
     }
 
@@ -103,14 +120,14 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
      * 设置是否监听列表在滚动到底部时触发加载事件(默认启用)
      */
     fun setEnableAutoLoadeMore(boolean: Boolean) {
-        refreshLayout.isEnableAutoLoadmore = boolean
+        refreshLayout.isEnableAutoLoadMore = boolean
     }
 
     /**
      * 设置是否启用上啦加载更多（默认启用）
      */
     fun setEnableLoadeMore(boolean: Boolean) {
-        refreshLayout.isEnableLoadmore = boolean
+        refreshLayout.isEnableLoadMore = boolean
     }
 
     /**

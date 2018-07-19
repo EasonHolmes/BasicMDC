@@ -32,7 +32,8 @@ ext {
             libSupportAppcompatDesign: "com.android.support:design:${supportVersion}",
             libCardView              : "com.android.support:cardview-v7:${supportVersion}",
             libKotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            libRefreshLayout         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3',
+            libRefreshLayout         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1',
+            libRefreshLyoautHeader   : 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
     ]
 //    widgetDependenciesKapt = [
 //            libKotlinDatabinding: "com.android.databinding:compiler:3.1.2"
@@ -47,7 +48,7 @@ ext {
             libRetrofitGson         : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
             libRetrofitRxadapter    : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             libKotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            libXlog                 : 'com.elvishew:xlog:1.3.0',
+            libXlog                 : 'com.elvishew:xlog:1.4.0',
             libRxJava               : 'io.reactivex.rxjava2:rxjava:2.1.12',
             libRxAndroid            : 'io.reactivex.rxjava2:rxandroid:2.0.2',
             libRxLifecycle          : "com.trello.rxlifecycle2:rxlifecycle:${rxLifecycleVersion}",
@@ -66,7 +67,7 @@ libGlideCompiler: "com.github.bumptech.glide:compiler:${glideVersion}"
             libSupportAppcompatV4: "com.android.support:support-v4:${supportVersion}",
             libRxpermissions     : 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar',
             libConstraintLayout  : 'com.android.support.constraint:constraint-layout:1.0.2',
-            libXlog              : 'com.elvishew:xlog:1.3.0',
+            libXlog              : 'com.elvishew:xlog:1.4.0',
             //libKotlin : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
             libKotlin            : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     ]

@@ -1,15 +1,16 @@
 package com.widget.library.refresh.listener
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 
 /**
  * Created by cuiyang on 2017/7/24.
  */
 
-interface onCLoadMoreListener : OnLoadmoreListener {
-    override fun onLoadmore(refreshlayout: RefreshLayout?) {
+interface onCLoadMoreListener : OnLoadMoreListener {
+    override fun onLoadMore(refreshLayout: RefreshLayout?) {
         onLoadMore()
     }
+
     fun onLoadMore()
 }

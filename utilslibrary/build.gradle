@@ -155,7 +155,7 @@ uploadArchives{
             repository(url: System.properties['mavenpath'])
             pom.groupId = 'com.utilslibrary.lib'
             pom.artifactId = 'sdk-utilslibrary'
-            pom.version = '0.0.6'
+            pom.version = '0.0.7'
         }
     }
 }

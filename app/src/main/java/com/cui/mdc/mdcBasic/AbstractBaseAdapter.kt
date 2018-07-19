@@ -13,7 +13,7 @@ import com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
  * 不需要上拉下拉时refreshLayout可传null
  * 这里只是控制在数据过于少和数据量恢复后停止和恢复上拉下拉加载
  */
-abstract class AbstractBaseAdapter<T : BaseEntity>(private val ddRecyclerViewLayout: DDRecyclerViewLayout? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class AbstractBaseAdapter<T>(private val ddRecyclerViewLayout: DDRecyclerViewLayout) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mData = mutableListOf<T>()
     //    private val mDecelerateInterpolator = DecelerateInterpolator(2f)
 //    private val mDuration = 500
@@ -25,15 +25,16 @@ abstract class AbstractBaseAdapter<T : BaseEntity>(private val ddRecyclerViewLay
     val data: MutableList<T>
         get() = mData
 
-    fun setNewData(data: MutableList<T>?) {
-        setNewDatas(data, true)
-    }
-
     fun addOneData(data: MutableList<T>?) {
         setNewDatas(data, false)
     }
 
-    fun setNewDatas(data: MutableList<T>?, refresh: Boolean) {
+    /**
+     * data默认为空不为null，使用时不需要做data是否为空逻辑方法已处理好。
+     * 如果只是简单的加载数据，直接使用，
+     * 如果有对数据处理有特殊需求自行处理
+     */
+    fun setNewDatas(data: MutableList<T>?, refresh: Boolean = true) {
         if (!refresh && data != null) {
             val p = this.mData.size
             this.mData.addAll(data)
@@ -45,6 +46,10 @@ abstract class AbstractBaseAdapter<T : BaseEntity>(private val ddRecyclerViewLay
                 this.mData.clear()
                 this.mData.addAll(data)
                 notifyDataSetChanged()
+                //当上拉加载到底无数据自动禁掉上拉加载后，如果再下拉刷新判断如果设置了上拉加载就再打开
+                if (ddRecyclerViewLayout.getLoadmoreListener() != null && mData.size > 0) {
+                    ddRecyclerViewLayout.setEnableLoadeMore(true)
+                }
             }
         }
         setLoadMore(data)
@@ -58,13 +63,14 @@ abstract class AbstractBaseAdapter<T : BaseEntity>(private val ddRecyclerViewLay
     /**
      * 当没有数据时不再上拉加载
      */
-    private fun setLoadMore(data: List<T>?) {
+    private fun setLoadMore(data: MutableList<T>?) {
         if (data == null || data.isEmpty()) {
-            ddRecyclerViewLayout?.setEnableLoadeMore(false)
-        } else if (data.size > 6) {//数据大于10条时再恢复
-            ddRecyclerViewLayout?.setEnableLoadeMore(true)
-            ddRecyclerViewLayout?.setEnableAutoLoadeMore(true)
+            ddRecyclerViewLayout.setEnableLoadeMore(false)
         }
+//        else if (data.size > 6) {//数据大于10条时再恢复
+//            ddRecyclerViewLayout.setEnableLoadeMore(true)
+//            ddRecyclerViewLayout.setEnableAutoLoadeMore(true)
+//        }
     }
 
     fun addOneData(data: T, position: Int) {

@@ -8,8 +8,8 @@ import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.cui.mdc.mdcMode.entity.BaseEntity
 import com.cui.mdc.uiExample.adapter.BindingViewHolder
+import com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
 
 /**
  * Created by cuiyang on 2018/3/28.
@@ -18,7 +18,7 @@ import com.cui.mdc.uiExample.adapter.BindingViewHolder
  * 这里只是控制在数据过于少和数据量恢复后停止和恢复上拉下拉加载
 */
  */
-abstract class SingleTypeListAdapter<T : BaseEntity, B : ViewDataBinding> : AbstractBaseAdapter<T>(), LifecycleObserver {
+abstract class SingleTypeListAdapter<T, B : ViewDataBinding>(ddRecyclerViewLayout: DDRecyclerViewLayout) : AbstractBaseAdapter<T>(ddRecyclerViewLayout), LifecycleObserver {
     lateinit var binding: B
 
     override fun onBindViewHolder(holder1: RecyclerView.ViewHolder, position: Int) {

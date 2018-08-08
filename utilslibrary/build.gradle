@@ -133,7 +133,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     librarys.each { k, v -> implementation v }
     kapts.each { k, v -> kapt v }
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.2.41"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.2.51"
 }
 repositories {
     mavenCentral()
@@ -155,7 +155,7 @@ uploadArchives{
             repository(url: System.properties['mavenpath'])
             pom.groupId = 'com.utilslibrary.lib'
             pom.artifactId = 'sdk-utilslibrary'
-            pom.version = '0.0.7'
+            pom.version = '0.0.8'
         }
     }
 }

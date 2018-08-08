@@ -156,7 +156,7 @@ uploadArchives{
             repository(url: System.properties['mavenpath'])
             pom.groupId = 'com.widgetlibrary.lib'
             pom.artifactId = 'sdk-widgetlibrary'
-            pom.version = '0.1.93'
+            pom.version = '0.1.1'
         }
     }
 }

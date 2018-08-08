@@ -102,14 +102,13 @@ android {
 
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //循环加入每个Dependencies
     commonLibrarys.each { k, v -> implementation v }
     utilsLibrarys.each { k, v -> implementation v }
     widgetLibrarys.each { k, v -> implementation v }
-//    myLibrarys.each { k, v -> implementation v }
+    //    myLibrarys.each { k, v -> implementation v }
     kapts.each { k, v -> kapt v }
     implementation project(':utilslibrary')
     implementation project(':widgetlibrary')
-
 }

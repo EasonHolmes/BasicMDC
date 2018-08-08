@@ -44,8 +44,8 @@ public final class GalleryModule extends AppGlideModule {
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
         builder.setDefaultRequestOptions(new RequestOptions().format(DecodeFormat.PREFER_RGB_565));
-        setMemoryBigSize(context, builder);
-        ViewTarget.setTagId(R.id.glide_tag_id);
+//        setMemoryBigSize(context, builder);
+//        ViewTarget.setTagId(R.id.glide_tag_id);
     }
     @Override
     public void registerComponents(@NonNull Context context, @NonNull Glide glide,

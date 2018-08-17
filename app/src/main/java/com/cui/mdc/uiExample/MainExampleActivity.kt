@@ -40,8 +40,8 @@ class MainExampleActivity : AbstractBaseActivity<MainActBinding, MainActivityCon
         binding.includeRefresh!!.swipeTarget.bindRefreshLayoutAndSetRefreshListener(this, this)
         binding.includeRefresh!!.swipeTarget.layoutManager = LinearLayoutManager(this)
         binding.includeRefresh!!.swipeTarget.adapter = adapter
-        binding.includeRefresh!!.swipeTarget.setBackgroundColor(resources.getColor(R.color.black))
-        (binding.includeRefresh!!.swipeTarget.getRefreshLayouts().refreshFooter as ViewGroup).setBackgroundColor(resources.getColor(R.color.black))
+//        binding.includeRefresh!!.swipeTarget.setBackgroundColor(resources.getColor(R.color.black))
+//        (binding.includeRefresh!!.swipeTarget.getRefreshLayouts().refreshFooter as ViewGroup).setBackgroundColor(resources.getColor(R.color.black))
         binding.includeRefresh!!.swipeTarget.refreshBeginCenter()
     }
 
@@ -53,6 +53,10 @@ class MainExampleActivity : AbstractBaseActivity<MainActBinding, MainActivityCon
     }
 
     override fun onLoadMore() {
+        if (adapter.itemCount >= 300) {
+            binding.includeRefresh!!.swipeTarget.refresComplete()
+            binding.includeRefresh!!.swipeTarget.setEnableLoadeMore(false)
+        }
         handler.postDelayed({
             val list = mutableListOf<String>()
             for (inex in 0..100) {

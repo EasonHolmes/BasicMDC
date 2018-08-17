@@ -32,8 +32,9 @@ ext {
             libSupportAppcompatDesign: "com.android.support:design:${supportVersion}",
             libCardView              : "com.android.support:cardview-v7:${supportVersion}",
             libKotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            libRefreshLayout         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1',
-            libRefreshLyoautHeader   : 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
+            libRefreshLayout         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14',
+//            libRefreshLyoautHeader   : 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
+            libRefreshLyoautHeader   : 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
     ]
 //    widgetDependenciesKapt = [
 //            libKotlinDatabinding: "com.android.databinding:compiler:3.1.2"

@@ -33,8 +33,11 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
     private lateinit var refreshLayout: SmartRefreshLayout
     private var topRefreshListener: OnCRefreshListener? = null
     private var refreshLoadMoreListener: onCLoadMoreListener? = null
-    val PAGE_SIZE = 10
     private var progress: ProgressBar? = null
+    private val footerEmptyView by lazy(LazyThreadSafetyMode.NONE) {
+        LayoutInflater.from(this.context).inflate(R.layout.empty_footer, this, false)
+    }
+    private var footerEmptyViewTip = false
 
     constructor(context: Context) : super(context) {
         init()
@@ -55,7 +58,7 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
      * 初始化上拉和下拉刷新 默认到底自动加载
      * 不需要下拉或上拉直接传null
      */
-    fun bindRefreshLayoutAndSetRefreshListener(listener: OnCRefreshListener? = null, listener1: onCLoadMoreListener? = null) {
+    open fun bindRefreshLayoutAndSetRefreshListener(listener: OnCRefreshListener? = null, listener1: onCLoadMoreListener? = null) {
         if (this.parent is SmartRefreshLayout) {
             this.refreshLayout = this.parent as SmartRefreshLayout
             setDefaultHeader(this.refreshLayout)
@@ -94,9 +97,9 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
     /**
     设置 Header 为 Material风格
      */
-    fun setDefaultHeader(refreshLayout: SmartRefreshLayout) {
-        refreshLayout.isEnableOverScrollBounce = false//是否启用越界回弹
-        refreshLayout.isEnableScrollContentWhenLoaded = false//是否在加载完成时滚动列表显示新的内容
+    open fun setDefaultHeader(refreshLayout: SmartRefreshLayout) {
+        refreshLayout.setEnableOverScrollBounce(false)
+        refreshLayout.setEnableScrollContentWhenLoaded(false)
 //        refreshLayout.setEnableLoadMoreWhenContentNotFull(false)//是否在列表不满一页时候开启上拉加载功能
 //        refreshLayout.refreshHeader = MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources, R.color.header_color, null))
         refreshLayout.setRefreshHeader(com.scwang.smartrefresh.header.MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources, R.color.header_color, null)))
@@ -107,34 +110,48 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
     设置 Header 为 ClassicsFooter风格
      */
     @SuppressLint("RestrictedApi")
-    fun setDefaultFooter(refreshLayout: SmartRefreshLayout) {
+    open fun setDefaultFooter(refreshLayout: SmartRefreshLayout) {
         val footer = ClassicsFooter(refreshLayout.context!!)
         footer.spinnerStyle = SpinnerStyle.Translate
-//        refreshLayout.refreshFooter?.setPrimaryColors(this.context.resources.getColor(R.color.footer_color))
         this.refreshLayout.setRefreshFooter(footer)
+        //设置是否启用内容视图拖动效果
         this.refreshLayout.setEnableFooterTranslationContent(true)
-
     }
 
     /**
      * 设置是否监听列表在滚动到底部时触发加载事件(默认启用)
      */
     fun setEnableAutoLoadeMore(boolean: Boolean) {
-        refreshLayout.isEnableAutoLoadMore = boolean
+        refreshLayout.setEnableAutoLoadMore(boolean)
+    }
+
+    /**
+     * 设置是否显示到底"已经没有内容了"
+     */
+    fun setEnableFooterEmptyViewTip(boolean: Boolean) {
+        footerEmptyViewTip = boolean
     }
 
     /**
      * 设置是否启用上啦加载更多（默认启用）
+     * 如果列表要加footerview 请注意添加顺序
      */
-    fun setEnableLoadeMore(boolean: Boolean) {
-        refreshLayout.isEnableLoadMore = boolean
+    open fun setEnableLoadeMore(boolean: Boolean) {
+        refreshLayout.setEnableLoadMore(boolean)
+        if (footerEmptyViewTip && refreshLoadMoreListener != null) {
+            if (boolean) {
+                this.removeFooterView(footerEmptyView)
+            } else {
+                this.addFooterView(footerEmptyView)
+            }
+        }
     }
 
     /**
      * 是否启用下拉刷新（默认启用）
      */
     fun setEnableRefresh(boolean: Boolean) {
-        refreshLayout.isEnableRefresh = boolean
+        refreshLayout.setEnableRefresh(boolean)
     }
 
     /**
@@ -147,7 +164,7 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
     /**
      * 刷新 中间显示progress
      */
-    fun refreshBeginCenter() {
+    open fun refreshBeginCenter() {
 //        为空时进行初始化
         if (progress == null && (this.parent is SmartRefreshLayout && this.parent.parent is FrameLayout)) {
             progress = (this.parent.parent as FrameLayout).findViewById(R.id.progress_refresh)
@@ -157,12 +174,12 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
     }
 
 
-    fun refresComplete(delay: Int = -1) {
-        refreshLayout.finishLoadmore(if (delay == -1) 50 else delay)
+    open fun refresComplete(delay: Int = -1) {
+        refreshLayout.finishLoadMore(if (delay == -1) 50 else delay)
         refreshLayout.finishRefresh(if (delay == -1) 50 else delay)
         //  防止recyclerview单独使用的情况
-        if (progress != null) {
-            progress?.visibility = View.GONE
+        progress?.let {
+            it.visibility = View.GONE
         }
     }
 
@@ -175,11 +192,11 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
 
      * @return
      */
-    fun setSimpleEmpty(isKeeyHeaderFooter: Boolean) {
+    open fun setSimpleEmpty(isKeeyHeaderFooter: Boolean) {
         setEmptyView(LayoutInflater.from(this.context).inflate(R.layout.list_empty, this, false), isKeeyHeaderFooter)
     }
 
-    fun setEmptyViewSetTxt(txtResrouceId: Int = 0, txtResrouce: String = "", isKeeyHeaderFooter: Boolean = true): View {
+    open fun setEmptyViewSetTxt(txtResrouceId: Int = 0, txtResrouce: String = "", isKeeyHeaderFooter: Boolean = true): View {
         val v = LayoutInflater.from(this.context).inflate(R.layout.list_empty, this, false)
         val txt = v.findViewById<TextView>(R.id.tv_empty) as TextView
         txt.text = if (!TextUtils.isEmpty(txtResrouce)) txtResrouce else this.context.resources.getString(txtResrouceId)
@@ -187,15 +204,15 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
         return v
     }
 
-    /**
-     * 当是图片列表需要标注避免Recyclerview使用Glide加载图片时惯性运动在消毁页面时依然还在加载图片
-     * 页面关闭recyclerview不再滑动 否则有可能Glide会出现You cannot start a load for a destroyed activity
-     */
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private fun stopFlingRecyclerview() {
-        this.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(),
-                SystemClock.uptimeMillis(), MotionEvent.ACTION_CANCEL, 0F, 0F, 0))
-    }
+//    /**
+//     * 当是图片列表需要标注避免Recyclerview使用Glide加载图片时惯性运动在消毁页面时依然还在加载图片
+//     * 页面关闭recyclerview不再滑动 否则有可能Glide会出现You cannot start a load for a destroyed activity
+//     */
+//    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+//    private fun stopFlingRecyclerview() {
+//        this.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(),
+//                SystemClock.uptimeMillis(), MotionEvent.ACTION_CANCEL, 0F, 0F, 0))
+//    }
 
     /**
      * 下拉刷新传入true

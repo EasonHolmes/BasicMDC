@@ -8,7 +8,10 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
  */
 
 interface onCLoadMoreListener : OnLoadMoreListener {
-    override fun onLoadMore(refreshLayout: RefreshLayout?) {
+    //    override fun onLoadMore(refreshLayout: RefreshLayout?) {
+//        onLoadMore()
+//    }
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
         onLoadMore()
     }
 

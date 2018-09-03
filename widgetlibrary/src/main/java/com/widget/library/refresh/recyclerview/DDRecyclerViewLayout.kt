@@ -29,15 +29,15 @@ import com.widget.library.refresh.listener.onCLoadMoreListener
  */
 open class DDRecyclerViewLayout : FamiliarRecyclerView {
 
-    var page = 1
     private lateinit var refreshLayout: SmartRefreshLayout
     private var topRefreshListener: OnCRefreshListener? = null
     private var refreshLoadMoreListener: onCLoadMoreListener? = null
     private var progress: ProgressBar? = null
+    private var footerEmptyViewTip = false
+    var page = 1
     private val footerEmptyView by lazy(LazyThreadSafetyMode.NONE) {
         LayoutInflater.from(this.context).inflate(R.layout.empty_footer, this, false)
     }
-    private var footerEmptyViewTip = false
 
     constructor(context: Context) : super(context) {
         init()
@@ -50,8 +50,8 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
     private fun init() {
-        (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false//不设置动画避免notifyItemRangeChanged更新会闪烁问题
-//        (itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
+        //不设置动画避免notifyItemRangeChanged更新会闪烁问题
+        (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
     }
 
     /**
@@ -100,10 +100,11 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
     open fun setDefaultHeader(refreshLayout: SmartRefreshLayout) {
         refreshLayout.setEnableOverScrollBounce(false)
         refreshLayout.setEnableScrollContentWhenLoaded(false)
-//        refreshLayout.setEnableLoadMoreWhenContentNotFull(false)//是否在列表不满一页时候开启上拉加载功能
-//        refreshLayout.refreshHeader = MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources, R.color.header_color, null))
         refreshLayout.setRefreshHeader(com.scwang.smartrefresh.header.MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources, R.color.header_color, null)))
         refreshLayout.setEnableHeaderTranslationContent(false)
+//      refreshLayout.setEnableLoadMoreWhenContentNotFull(false)//是否在列表不满一页时候开启上拉加载功能
+//      refreshLayout.refreshHeader = MaterialHeader(refreshLayout.context).setColorSchemeColors(ResourcesCompat.getColor(resources, R.color.header_color, null))
+
     }
 
     /**

@@ -144,7 +144,7 @@ task sourcesJar(type: Jar) {
 }
 
 
-//本地库jcenter使用
+//本地库jcenter使用x
 //这样可以看到源码
 artifacts {
     archives sourcesJar

@@ -10,9 +10,9 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
-import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.util.TypedValue
+import androidx.core.content.res.ResourcesCompat
 
 class ProgressBarCircularIndeterminate(context: Context, attrs: AttributeSet) : CustomView(context, attrs) {
 

@@ -2,14 +2,15 @@ package com.widget.library.anim.coordinator_anim;
 
 
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 
 @SuppressWarnings("unused")
-public class CommonBehavior extends CoordinatorLayout.Behavior<View> {
+public abstract class CommonBehavior extends CoordinatorLayout.Behavior<View> {
     protected boolean canScroll = true;
 
 
@@ -32,6 +33,7 @@ public class CommonBehavior extends CoordinatorLayout.Behavior<View> {
 
     /**
      * 用来判断child是否有一个对应的dependency，如果有就返回true，默认情况下返回的是false
+     *
      * @param parent
      * @param child
      * @param dependency
@@ -91,4 +93,6 @@ public class CommonBehavior extends CoordinatorLayout.Behavior<View> {
         return (CommonBehavior) behavior;
     }
 
+    //判断垂直滑动
+    public abstract boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes);
 }

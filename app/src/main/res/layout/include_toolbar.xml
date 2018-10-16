@@ -17,7 +17,7 @@
 <!--layout="@layout/include_toolbar_padding_view"/>-->
 
 
-<android.support.v7.widget.Toolbar
+<androidx.appcompat.widget.Toolbar
     android:id="@+id/mToolBar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -40,5 +40,5 @@
     app:layout_scrollFlags="scroll|enterAlways"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
      -->
-</android.support.v7.widget.Toolbar>
+</androidx.appcompat.widget.Toolbar>
     <!--</android.support.v7.widget.LinearLayoutCompat>-->

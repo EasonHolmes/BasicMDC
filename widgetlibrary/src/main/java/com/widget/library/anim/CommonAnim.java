@@ -1,8 +1,9 @@
 package com.widget.library.anim;
 
 
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.view.animation.Interpolator;
+
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 
 public abstract class CommonAnim {
 

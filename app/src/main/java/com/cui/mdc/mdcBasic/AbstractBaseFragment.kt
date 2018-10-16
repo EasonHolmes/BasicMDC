@@ -1,25 +1,23 @@
 package com.cui.mdc.mdcBasic
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
-import android.databinding.DataBindingUtil
-import android.databinding.OnRebindCallback
-import android.databinding.ViewDataBinding
 import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.transition.TransitionManager
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.OnRebindCallback
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 
 import com.cui.mdc.R
-import com.trello.rxlifecycle2.components.support.RxFragment
 import com.utils.library.utils.isNotEmptyStr
-import com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
 
 
 import io.reactivex.disposables.Disposable
@@ -32,7 +30,7 @@ import retrofit2.HttpException
  * 生命周期顺序请注意 1setUserVisibleHint 2onCreateView 3 onCreateViewed
  * 为防止 Glide会出现You cannot start a load for a destroyed activity页面关闭recyclerview不再滑动 使用Lifecycle写在DDRecyclerviewLyoaut中在onStop生命周期
  */
-abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePresenter> : RxFragment(),
+abstract class AbstractBaseFragment<B : ViewDataBinding, T : BaseContract.BasePresenter> : Fragment(),
         View.OnClickListener, BaseContract.BaseView {
 
     private val EXTRA_PARENT_FRAGMENT_CLASS_NAME = "Base_Extra_ParentFragmentClassName"

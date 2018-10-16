@@ -3,7 +3,6 @@ package com.utils.library.img;
 
 import android.content.Context;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -23,6 +22,8 @@ import com.bumptech.glide.request.target.ViewTarget;
 import com.utils.library.R;
 
 import java.io.InputStream;
+
+import androidx.annotation.NonNull;
 
 /**
  * @author cuiyang

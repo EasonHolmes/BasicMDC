@@ -1,7 +1,7 @@
 package com.cui.mdc.mdcMode.entity;
 
 
-import android.databinding.BaseObservable;
+import androidx.databinding.BaseObservable;
 
 /**
  * Created by cuiyang on 16/6/3.

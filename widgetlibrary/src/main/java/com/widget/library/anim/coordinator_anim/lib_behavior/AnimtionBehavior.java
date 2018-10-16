@@ -1,8 +1,6 @@
 package com.widget.library.anim.coordinator_anim.lib_behavior;
 
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -10,10 +8,12 @@ import android.view.animation.Interpolator;
 import com.widget.library.anim.CommonAnim;
 import com.widget.library.anim.coordinator_anim.CommonBehavior;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+
 
 /**
  * Created by cuiyang on 2017/4/28.
- *
  */
 
 public class AnimtionBehavior extends CommonBehavior {
@@ -50,6 +50,7 @@ public class AnimtionBehavior extends CommonBehavior {
         this.scrollYDistance = scrollYDistance;
         return this;
     }
+
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
         if (mCommonAnim != null) {
@@ -58,6 +59,7 @@ public class AnimtionBehavior extends CommonBehavior {
         }
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
     }
+
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
@@ -78,6 +80,11 @@ public class AnimtionBehavior extends CommonBehavior {
                 mTotalScrollY = 0;
             }
         }
+    }
+
+    @Override
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
+        return false;
     }
 
     public void show() {

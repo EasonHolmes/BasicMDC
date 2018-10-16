@@ -1,8 +1,6 @@
 package com.cui.mdc.mdcBasic
 
-import android.support.v7.widget.RecyclerView
-import com.cui.mdc.mdcMode.entity.BaseEntity
-
+import androidx.recyclerview.widget.RecyclerView
 import com.widget.library.refresh.recyclerview.DDRecyclerViewLayout
 
 

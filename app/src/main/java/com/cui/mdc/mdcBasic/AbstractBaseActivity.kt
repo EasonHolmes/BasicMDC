@@ -1,20 +1,20 @@
 package com.cui.mdc.mdcBasic
 
 import android.content.Intent
-import android.databinding.DataBindingUtil
-import android.databinding.OnRebindCallback
-import android.databinding.ViewDataBinding
 import android.os.*
-import android.support.transition.TransitionManager
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.OnRebindCallback
+import androidx.databinding.ViewDataBinding
+import androidx.transition.TransitionManager
 import com.cui.mdc.R
 import com.cui.mdc.mdcHelper.ActivityHelper
 
-import com.tbruyelle.rxpermissions2.RxPermissions
+import com.utils.library.rxpermission.RxPermissions
 import com.utils.library.utils.isNotEmptyStr
 import com.widget.library.utils.StatusBarUtil
 import io.reactivex.disposables.Disposable

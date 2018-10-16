@@ -3,8 +3,6 @@ package com.widget.library.refresh.recyclerview
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.SystemClock
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.SimpleItemAnimator
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -13,6 +11,8 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter

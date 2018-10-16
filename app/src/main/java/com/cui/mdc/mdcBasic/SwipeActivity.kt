@@ -8,7 +8,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v4.content.res.ResourcesCompat
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.MotionEvent
@@ -18,16 +17,17 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 
 import com.cui.mdc.R
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 
 
 /**
  * @author cuiyang
  */
 @SuppressLint("Registered")
-open class SwipeActivity : RxAppCompatActivity() {
+open class SwipeActivity : AppCompatActivity() {
 
     private var swipeLayout: SwipeLayout? = null
 

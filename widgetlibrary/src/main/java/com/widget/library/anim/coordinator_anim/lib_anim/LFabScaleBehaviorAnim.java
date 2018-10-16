@@ -1,10 +1,11 @@
 package com.widget.library.anim.coordinator_anim.lib_anim;
 
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.view.View;
 
 import com.widget.library.anim.CommonAnim;
+
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorListener;
 
 /**
  * fab Anim

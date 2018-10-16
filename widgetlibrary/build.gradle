@@ -108,7 +108,7 @@ def librarys = rootProject.ext.widgetDependencies
 
 android {
     compileSdkVersion cfg.compileSdkVersion
-    buildToolsVersion cfg.buildToolsVersion
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion cfg.minSdkVersion
@@ -156,7 +156,7 @@ uploadArchives{
             repository(url: System.properties['mavenpath'])
             pom.groupId = 'com.widgetlibrary.lib'
             pom.artifactId = 'sdk-widgetlibrary'
-            pom.version = '0.1.6'
+            pom.version = '0.1.9'
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.cui.mdc.mdcMode.entity;
 
+
 import android.databinding.BaseObservable;
 
 /**

@@ -1,8 +1,6 @@
 package com.widget.library.refresh.recyclerview
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.os.SystemClock
 import android.support.v4.content.res.ResourcesCompat

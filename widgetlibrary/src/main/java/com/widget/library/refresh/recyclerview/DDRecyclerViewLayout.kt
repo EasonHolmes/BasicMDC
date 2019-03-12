@@ -221,7 +221,7 @@ open class DDRecyclerViewLayout : FamiliarRecyclerView {
      * *
      * @return
      */
-    fun getPage(isRefresh: Boolean): Int {
+    open fun getPage(isRefresh: Boolean): Int {
         if (isRefresh) {
             page = 1
         } else {
